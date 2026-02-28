@@ -4,718 +4,213 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cipher — Secure Tools for Everyone</title>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --bg: #050508;
-    --surface: #0d0d14;
-    --border: #1a1a2e;
-    --accent: #00f5c4;
-    --accent2: #7c3aed;
-    --text: #e8e8f0;
-    --muted: #5a5a7a;
-    --glow: rgba(0, 245, 196, 0.15);
-  }
+:root{
+  --bg:#050508;
+  --surface:#0d0d14;
+  --border:#1a1a2e;
+  --accent:#00f5c4;
+  --text:#e8e8f0;
+  --muted:#5a5a7a;
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    overflow-x: hidden;
-  }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Syne',sans-serif;
+  overflow-x:hidden;
+}
 
-  a, button { cursor: pointer; }
+/* ================= NAV ================= */
 
-  /* Noise texture overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.4;
-  }
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(5,5,8,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  z-index:100;
+}
 
-  /* Grid background */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(0,245,196,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,245,196,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
+.nav-links{
+  display:flex;
+  gap:30px;
+  list-style:none;
+}
 
-  /* CIPHER BRAND LOGO */
-  .cipher-logo {
-    display: inline-flex;
-    align-items: flex-start;
-    line-height: 1;
-  }
-  .cipher-logo .word {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    position: relative;
-  }
-  .cipher-logo .word::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-  }
-  .cipher-logo .tm {
-    font-family: 'Rajdhani', sans-serif;
-    color: rgba(0,245,196,0.8);
-    font-weight: 600;
-    margin-left: -1px;
-    margin-top: 0.1em;
-    line-height: 1;
-  }
-  .cipher-logo .product-name {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: 0.06em;
-    margin-left: 6px;
-    white-space: nowrap;
-  }
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-family:'DM Mono',monospace;
+  font-size:13px;
+}
 
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(5,5,8,0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-  }
+.nav-links a:hover{color:var(--accent)}
 
-  .nav-logo {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: var(--accent);
-    font-family: 'DM Mono', monospace;
-  }
+/* ================= HERO ================= */
 
-  .nav-logo span {
-    color: var(--muted);
-    font-weight: 300;
-  }
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding-top:120px;
+}
 
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
+.hero h1{
+  font-size:70px;
+  font-weight:800;
+  color:var(--accent);
+}
 
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 13px;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.05em;
-    transition: color 0.2s;
-  }
+.hero p{
+  margin-top:20px;
+  color:var(--muted);
+  font-family:'DM Mono',monospace;
+}
 
-  .nav-links a:hover { color: var(--accent); }
+/* ================= TOOLS ================= */
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 120px 40px 80px;
-    position: relative;
-    z-index: 2;
-  }
+.tools{
+  padding:100px 40px;
+  max-width:1100px;
+  margin:auto;
+}
 
-  .hero-content {
-    text-align: center;
-    max-width: 800px;
-  }
+.tools-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
 
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0,245,196,0.08);
-    border: 1px solid rgba(0,245,196,0.2);
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 32px;
-    animation: fadeDown 0.8s ease both;
-  }
+.tool-card{
+  background:var(--surface);
+  padding:40px;
+  border:1px solid var(--border);
+  position:relative;
+  transition:0.3s;
+}
 
-  .badge-dot {
-    width: 6px; height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
+.tool-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 20px rgba(0,245,196,0.15);
+}
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
+.tool-name{
+  font-size:22px;
+  font-weight:800;
+  margin-bottom:10px;
+}
 
-  .hero h1 {
-    font-size: clamp(60px, 10vw, 110px);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -3px;
-    margin-bottom: 24px;
-    animation: fadeUp 0.8s 0.1s ease both;
-  }
+.tool-desc{
+  font-family:'DM Mono',monospace;
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:25px;
+}
 
-  .hero p {
-    font-size: 18px;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 48px;
-    font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
+/* ================= DOWNLOAD BUTTON ================= */
 
-  .hero-btns {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-    animation: fadeUp 0.8s 0.3s ease both;
-  }
+.tool-download{
+  display:inline-block;
+  padding:12px 25px;
+  background:rgba(0,245,196,0.1);
+  border:1px solid rgba(0,245,196,0.3);
+  color:var(--accent);
+  text-decoration:none;
+  font-family:'DM Mono',monospace;
+  font-size:13px;
+  transition:0.2s;
+}
 
-  .btn-primary {
-    background: var(--accent);
-    color: #000;
-    padding: 14px 32px;
-    border: none;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
+.tool-download:hover{
+  background:var(--accent);
+  color:#000;
+  box-shadow:0 0 15px rgba(0,245,196,0.5);
+}
 
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.2);
-    transform: translateX(-100%);
-    transition: transform 0.3s;
-  }
+/* ================= FOOTER ================= */
 
-  .btn-primary:hover::before { transform: translateX(0); }
+footer{
+  text-align:center;
+  padding:40px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-family:'DM Mono',monospace;
+}
 
-  .btn-secondary {
-    background: transparent;
-    color: var(--text);
-    padding: 14px 32px;
-    border: 1px solid var(--border);
-    font-family: 'Syne', sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* Glowing orb */
-  .hero-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(0,245,196,0.08) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    animation: breathe 4s ease-in-out infinite;
-  }
-
-  @keyframes breathe {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-  }
-
-  /* STATS */
-  .stats {
-    position: relative;
-    z-index: 2;
-    padding: 40px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: center;
-    gap: 80px;
-    flex-wrap: wrap;
-    background: rgba(13,13,20,0.5);
-  }
-
-  .stat { text-align: center; }
-
-  .stat-num {
-    font-size: 42px;
-    font-weight: 800;
-    color: var(--accent);
-    font-family: 'DM Mono', monospace;
-    display: block;
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* TOOLS SECTION */
-  .tools {
-    padding: 100px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-  }
-
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-label::before {
-    content: '';
-    width: 40px; height: 1px;
-    background: var(--accent);
-  }
-
-  .section-title {
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 800;
-    letter-spacing: -2px;
-    margin-bottom: 60px;
-    line-height: 1.1;
-  }
-
-  .tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .tool-card {
-    background: var(--surface);
-    padding: 40px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s;
-    group: true;
-  }
-
-  .tool-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(0,245,196,0.05) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .tool-card:hover::before { opacity: 1; }
-
-  .tool-card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
-  }
-
-  .tool-card:hover::after { transform: scaleX(1); }
-
-  .tool-icon {
-    width: 48px; height: 48px;
-    background: rgba(0,245,196,0.1);
-    border: 1px solid rgba(0,245,196,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    margin-bottom: 24px;
-    transition: all 0.3s;
-  }
-
-  .tool-card:hover .tool-icon {
-    background: rgba(0,245,196,0.2);
-    box-shadow: 0 0 20px rgba(0,245,196,0.2);
-  }
-
-  .tool-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .tool-name {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 12px;
-  }
-
-  .tool-desc {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.6;
-    font-family: 'DM Mono', monospace;
-    font-weight: 300;
-    margin-bottom: 28px;
-  }
-
-  .tool-features {
-    list-style: none;
-    margin-bottom: 28px;
-  }
-
-  .tool-features li {
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    padding: 4px 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .tool-features li::before {
-    content: '→';
-    color: var(--accent);
-    font-size: 10px;
-  }
-
-  .tool-download {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(0,245,196,0.1);
-    border: 1px solid rgba(0,245,196,0.3);
-    color: var(--accent);
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 12px;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.05em;
-    transition: all 0.2s;
-    cursor: pointer;
-    pointer-events: all;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(0,245,196,0.6); }
-    50% { opacity: 0.4; box-shadow: 0 0 25px rgba(0,245,196,0.9); }
-  }
-
-  .tool-download:hover {
-    background: var(--accent);
-    color: #000;
-    animation: blink 0.6s ease-in-out infinite;
-  }
-
-  .tool-coming {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 10px 20px;
-    font-size: 12px;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 0.05em;
-  }
-
-  /* FOOTER */
-  footer {
-    position: relative;
-    z-index: 2;
-    border-top: 1px solid var(--border);
-    padding: 40px;
-    text-align: center;
-  }
-
-  .footer-logo {
-    font-family: 'DM Mono', monospace;
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--accent);
-    margin-bottom: 12px;
-  }
-
-  .footer-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  /* Animations */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 600px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-    .hero { padding: 100px 20px 60px; }
-    .tools { padding: 60px 20px; }
-    .stats { gap: 40px; padding: 30px 20px; }
-  }
+@media(max-width:600px){
+  .hero h1{font-size:45px}
+}
 </style>
 </head>
+
 <body>
 
 <nav>
-  <div class="cipher-logo" style="font-size:20px;">
-    <span class="word">Cipher</span><span class="tm" style="font-size:10px; margin-top:3px;">™</span>
-    <span class="product-name" style="font-size:20px; color:var(--muted);">Tools</span>
-  </div>
+  <div style="color:var(--accent);font-weight:800;">Cipher™ Tools</div>
   <ul class="nav-links">
     <li><a href="#tools">Tools</a></li>
-    <li><a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+    <li><a href="https://github.com/aboutsajid" target="_blank">GitHub</a></li>
   </ul>
 </nav>
 
 <section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      Free & Open Source
-    </div>
-    <h1>
-      <div class="cipher-logo" style="font-size: clamp(60px, 10vw, 110px); justify-content:center;">
-        <span class="word">Cipher</span><span class="tm" style="font-size:0.22em; margin-top:0.15em; margin-left:-2px;">™</span>
-      </div>
-      <div style="font-family:'Syne',sans-serif; font-size:clamp(40px,7vw,80px); font-weight:800; letter-spacing:-2px; color:var(--text); margin-top:4px;">Tools Suite</div>
-    </h1>
-    <p>Powerful desktop utilities built for privacy,<br>speed, and simplicity. No bloat. No tracking.</p>
-    <div class="hero-btns">
-      <a href="#tools" class="btn-primary">Explore Tools</a>
-      <a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer" class="btn-secondary">View on GitHub</a>
-    </div>
+  <div>
+    <h1>Cipher™</h1>
+    <p>Free • Fast • Offline • No Tracking</p>
   </div>
 </section>
 
-<div class="stats">
-  <div class="stat">
-    <span class="stat-num">4</span>
-    <span class="stat-label">Tools Built</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">100%</span>
-    <span class="stat-label">Free Forever</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">0</span>
-    <span class="stat-label">Tracking / Ads</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">Win</span>
-    <span class="stat-label">Platform</span>
-  </div>
-</div>
-
 <section class="tools" id="tools">
-  <div class="section-label">What we built</div>
-  <h2 class="section-title">The <span style="font-family:'Rajdhani',sans-serif; color:var(--accent);">Cipher<sup style="font-size:0.4em; font-family:'Rajdhani',sans-serif; color:rgba(0,245,196,0.8);">™</sup></span><br>Suite</h2>
 
   <div class="tools-grid">
 
     <!-- Screen Recorder -->
-    <div class="tool-card fade-in">
-      <div class="tool-icon"><img src="screen-recorder-icon.png" style="width:48px; height:48px; object-fit:contain; border-radius:8px;"></div>
-      <div class="tool-tag">v1.0 — Available</div>
-      <div class="tool-name">
-        <div class="cipher-logo" style="font-size:18px;">
-          <span class="word">Cipher</span><span class="tm" style="font-size:9px; margin-top:2px;">™</span>
-          <span class="product-name" style="font-size:18px;">Screen Recorder</span>
-        </div>
+    <div class="tool-card">
+      <div class="tool-name">Cipher™ Screen Recorder</div>
+      <div class="tool-desc">
+        Record your screen in high quality with zero watermark.
       </div>
-      <div class="tool-desc">Record your screen with zero quality loss. Lightweight, fast, no watermarks.</div>
-      <ul class="tool-features">
-        <li>Full screen & window capture</li>
-        <li>No watermarks ever</li>
-        <li>Lightweight & offline</li>
-      </ul>
-
-      <!-- ✅ Direct asset download link -->
-      <a
-        href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher-Screen-Recorder.exe"
-        class="tool-download"
-        download
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher.Screen.Recorder.exe"
+         class="tool-download"
+         target="_blank"
+         rel="noopener noreferrer">
         ↓ Download .exe
       </a>
     </div>
 
     <!-- YT Downloader -->
-    <div class="tool-card fade-in">
-      <div class="tool-icon"><img src="yt-downloader-icon.png" style="width:48px; height:48px; object-fit:contain; border-radius:8px;"></div>
-      <div class="tool-tag">v1.0 — Available</div>
-      <div class="tool-name">
-        <div class="cipher-logo" style="font-size:18px;">
-          <span class="word">Cipher</span><span class="tm" style="font-size:9px; margin-top:2px;">™</span>
-          <span class="product-name" style="font-size:18px;">YT Downloader</span>
-        </div>
+    <div class="tool-card">
+      <div class="tool-name">Cipher™ YT Downloader</div>
+      <div class="tool-desc">
+        Download YouTube videos with extension support.
       </div>
-      <div class="tool-desc">Download YouTube videos in high quality with Chrome extension support.</div>
-      <ul class="tool-features">
-        <li>4K / 1080p / 720p support</li>
-        <li>Chrome extension included</li>
-        <li>Playlist & subtitle support</li>
-      </ul>
-
-      <!-- ✅ Direct asset download link -->
-      <a
-        href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher-YT-Downloader.rar"
-        class="tool-download"
-        download
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher.YT.Downloader.with.Extension.rar"
+         class="tool-download"
+         target="_blank"
+         rel="noopener noreferrer">
         ↓ Download .rar
       </a>
     </div>
 
-    <!-- DNS -->
-    <div class="tool-card fade-in">
-      <div class="tool-icon">🌐</div>
-      <div class="tool-tag">Coming Soon</div>
-      <div class="tool-name">
-        <div class="cipher-logo" style="font-size:18px;">
-          <span class="word">Cipher</span><span class="tm" style="font-size:9px; margin-top:2px;">™</span>
-          <span class="product-name" style="font-size:18px;">DNS</span>
-        </div>
-      </div>
-      <div class="tool-desc">One-click DNS switching for faster browsing and better privacy.</div>
-      <ul class="tool-features">
-        <li>Multiple DNS presets</li>
-        <li>One click switch</li>
-        <li>Speed test built-in</li>
-      </ul>
-      <span class="tool-coming">⏳ Releasing Soon</span>
-    </div>
-
-    <!-- Vault -->
-    <div class="tool-card fade-in">
-      <div class="tool-icon">🔐</div>
-      <div class="tool-tag">Coming Soon</div>
-      <div class="tool-name">
-        <div class="cipher-logo" style="font-size:18px;">
-          <span class="word">Cipher</span><span class="tm" style="font-size:9px; margin-top:2px;">™</span>
-          <span class="product-name" style="font-size:18px;">Vault</span>
-        </div>
-      </div>
-      <div class="tool-desc">Encrypt and lock your sensitive files with military-grade security.</div>
-      <ul class="tool-features">
-        <li>AES-256 encryption</li>
-        <li>Local only, no cloud</li>
-        <li>Password protected</li>
-      </ul>
-      <span class="tool-coming">⏳ Releasing Soon</span>
-    </div>
-
   </div>
+
 </section>
 
 <footer>
-  <div class="footer-logo">
-    <div class="cipher-logo" style="font-size:28px; justify-content:center;">
-      <span class="word">Cipher</span><span class="tm" style="font-size:13px; margin-top:4px;">™</span>
-    </div>
-  </div>
-  <div class="footer-text">
-    Built with ❤️ by Sajid Mehmood &nbsp;·&nbsp; Free forever &nbsp;·&nbsp;
-    <a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration:none;">GitHub</a>
-  </div>
+  Built with ❤️ by Sajid Mehmood • Free Forever
 </footer>
-
-<script>
-  // Scroll animations
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 100);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
 
 </body>
 </html>
