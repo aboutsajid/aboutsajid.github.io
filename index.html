@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -27,8 +27,6 @@
   }
 
   a, button { cursor: pointer; }
-
-  /* Custom cursor removed for compatibility */
 
   /* Noise texture overlay */
   body::before {
@@ -191,28 +189,6 @@
     animation: fadeUp 0.8s 0.1s ease both;
   }
 
-  .hero h1 .cipher-text {
-    color: var(--accent);
-    position: relative;
-    display: inline-block;
-  }
-
-  .hero h1 .cipher-text::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0; right: 0;
-    height: 3px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: lineReveal 0.8s 0.6s ease both;
-  }
-
-  @keyframes lineReveal {
-    to { transform: scaleX(1); }
-  }
-
   .hero p {
     font-size: 18px;
     color: var(--muted);
@@ -307,9 +283,7 @@
     background: rgba(13,13,20,0.5);
   }
 
-  .stat {
-    text-align: center;
-  }
+  .stat { text-align: center; }
 
   .stat-num {
     font-size: 42px;
@@ -562,8 +536,6 @@
 </head>
 <body>
 
-
-
 <nav>
   <div class="cipher-logo" style="font-size:20px;">
     <span class="word">Cipher</span><span class="tm" style="font-size:10px; margin-top:3px;">™</span>
@@ -571,7 +543,7 @@
   </div>
   <ul class="nav-links">
     <li><a href="#tools">Tools</a></li>
-    <li><a href="https://github.com/aboutsajid" target="_blank">GitHub</a></li>
+    <li><a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer">GitHub</a></li>
   </ul>
 </nav>
 
@@ -591,7 +563,7 @@
     <p>Powerful desktop utilities built for privacy,<br>speed, and simplicity. No bloat. No tracking.</p>
     <div class="hero-btns">
       <a href="#tools" class="btn-primary">Explore Tools</a>
-      <a href="https://github.com/aboutsajid" target="_blank" class="btn-secondary">View on GitHub</a>
+      <a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer" class="btn-secondary">View on GitHub</a>
     </div>
   </div>
 </section>
@@ -637,7 +609,15 @@
         <li>No watermarks ever</li>
         <li>Lightweight & offline</li>
       </ul>
-      <a href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/tag/V1.0" class="tool-download" target="_blank">
+
+      <!-- ✅ Direct asset download link -->
+      <a
+        href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher-Screen-Recorder.exe"
+        class="tool-download"
+        download
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         ↓ Download .exe
       </a>
     </div>
@@ -658,7 +638,15 @@
         <li>Chrome extension included</li>
         <li>Playlist & subtitle support</li>
       </ul>
-      <a href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/tag/V1.0" class="tool-download" target="_blank">
+
+      <!-- ✅ Direct asset download link -->
+      <a
+        href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher-YT-Downloader.rar"
+        class="tool-download"
+        download
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         ↓ Download .rar
       </a>
     </div>
@@ -710,7 +698,10 @@
       <span class="word">Cipher</span><span class="tm" style="font-size:13px; margin-top:4px;">™</span>
     </div>
   </div>
-  <div class="footer-text">Built with ❤️ by Sajid Mehmood &nbsp;·&nbsp; Free forever &nbsp;·&nbsp; <a href="https://github.com/aboutsajid" style="color: var(--accent); text-decoration:none;">GitHub</a></div>
+  <div class="footer-text">
+    Built with ❤️ by Sajid Mehmood &nbsp;·&nbsp; Free forever &nbsp;·&nbsp;
+    <a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration:none;">GitHub</a>
+  </div>
 </footer>
 
 <script>
