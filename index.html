@@ -27,6 +27,8 @@
     cursor: none;
   }
 
+  a, button { cursor: pointer !important; }
+
   /* Custom cursor */
   .cursor {
     width: 8px; height: 8px;
@@ -259,7 +261,7 @@
     font-weight: 700;
     font-size: 14px;
     letter-spacing: 0.05em;
-    cursor: none;
+    cursor: pointer;
     text-decoration: none;
     transition: all 0.2s;
     position: relative;
@@ -286,7 +288,7 @@
     font-weight: 600;
     font-size: 14px;
     letter-spacing: 0.05em;
-    cursor: none;
+    cursor: pointer;
     text-decoration: none;
     transition: all 0.2s;
   }
@@ -498,12 +500,19 @@
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.05em;
     transition: all 0.2s;
-    cursor: none;
+    cursor: pointer;
+    pointer-events: all;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(0,245,196,0.6); }
+    50% { opacity: 0.4; box-shadow: 0 0 25px rgba(0,245,196,0.9); }
   }
 
   .tool-download:hover {
     background: var(--accent);
     color: #000;
+    animation: blink 0.6s ease-in-out infinite;
   }
 
   .tool-coming {
