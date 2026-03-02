@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Cipher — Secure Tools for Everyone</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
   :root {
     --bg: #050508;
@@ -135,7 +137,7 @@
 
   .hero-content {
     text-align: center;
-    max-width: 800px;
+    max-width: 900px;
   }
 
   .hero-badge {
@@ -176,28 +178,6 @@
     animation: fadeUp 0.8s 0.1s ease both;
   }
 
-  .hero h1 .cipher-text {
-    color: var(--accent);
-    position: relative;
-    display: inline-block;
-  }
-
-  .hero h1 .cipher-text::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0; right: 0;
-    height: 3px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: lineReveal 0.8s 0.6s ease both;
-  }
-
-  @keyframes lineReveal {
-    to { transform: scaleX(1); }
-  }
-
   .hero p {
     font-size: 18px;
     color: var(--muted);
@@ -225,7 +205,6 @@
     font-weight: 700;
     font-size: 14px;
     letter-spacing: 0.05em;
-    cursor: pointer;
     text-decoration: none;
     transition: all 0.2s;
     position: relative;
@@ -252,7 +231,6 @@
     font-weight: 600;
     font-size: 14px;
     letter-spacing: 0.05em;
-    cursor: pointer;
     text-decoration: none;
     transition: all 0.2s;
   }
@@ -292,9 +270,7 @@
     background: rgba(13,13,20,0.5);
   }
 
-  .stat {
-    text-align: center;
-  }
+  .stat { text-align: center; }
 
   .stat-num {
     font-size: 42px;
@@ -361,17 +337,16 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s;
-    group: true;
   }
 
-  /* ✅ FIX #1: overlays should NOT block hover/click */
+  /* overlays should NOT block hover/click */
   .tool-card::before,
   .tool-card::after {
     pointer-events: none;
     z-index: 0;
   }
 
-  /* ✅ FIX #2: all content should be above overlays */
+  /* all content above overlays */
   .tool-card > * {
     position: relative;
     z-index: 2;
@@ -403,19 +378,29 @@
 
   .tool-icon {
     width: 48px; height: 48px;
-    background: rgba(0,245,196,0.1);
-    border: 1px solid rgba(0,245,196,0.2);
+    background: rgba(0,245,196,0.10);
+    border: 1px solid rgba(0,245,196,0.22);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
     margin-bottom: 24px;
     transition: all 0.3s;
+    border-radius: 12px;
+  }
+
+  .tool-icon svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .tool-card:hover .tool-icon {
-    background: rgba(0,245,196,0.2);
-    box-shadow: 0 0 20px rgba(0,245,196,0.2);
+    background: rgba(0,245,196,0.18);
+    box-shadow: 0 0 20px rgba(0,245,196,0.18);
   }
 
   .tool-tag {
@@ -425,6 +410,19 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     margin-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tool-tag .pill {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 2px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,245,196,0.25);
+    background: rgba(0,245,196,0.08);
+    color: var(--accent);
   }
 
   .tool-name {
@@ -479,15 +477,14 @@
     transition: all 0.2s;
     cursor: pointer;
     pointer-events: auto;
-
-    /* ✅ FIX #3: ensure button is always on top */
     position: relative;
     z-index: 5;
+    border-radius: 10px;
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(0,245,196,0.6); }
-    50% { opacity: 0.4; box-shadow: 0 0 25px rgba(0,245,196,0.9); }
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px rgba(0,245,196,0.35); }
+    50% { opacity: 0.5; box-shadow: 0 0 25px rgba(0,245,196,0.55); }
   }
 
   .tool-download:hover {
@@ -506,6 +503,7 @@
     font-size: 12px;
     font-family: 'DM Mono', monospace;
     letter-spacing: 0.05em;
+    border-radius: 10px;
   }
 
   /* FOOTER */
@@ -515,14 +513,6 @@
     border-top: 1px solid var(--border);
     padding: 40px;
     text-align: center;
-  }
-
-  .footer-logo {
-    font-family: 'DM Mono', monospace;
-    font-size: 28px;
-    font-weight: 500;
-    color: var(--accent);
-    margin-bottom: 12px;
   }
 
   .footer-text {
@@ -562,6 +552,7 @@
   }
 </style>
 </head>
+
 <body>
 
 <nav>
@@ -582,13 +573,18 @@
       <span class="badge-dot"></span>
       Free & Open Source
     </div>
+
     <h1>
       <div class="cipher-logo" style="font-size: clamp(60px, 10vw, 110px); justify-content:center;">
         <span class="word">Cipher</span><span class="tm" style="font-size:0.22em; margin-top:0.15em; margin-left:-2px;">™</span>
       </div>
-      <div style="font-family:'Syne',sans-serif; font-size:clamp(40px,7vw,80px); font-weight:800; letter-spacing:-2px; color:var(--text); margin-top:4px;">Tools Suite</div>
+      <div style="font-family:'Syne',sans-serif; font-size:clamp(40px,7vw,80px); font-weight:800; letter-spacing:-2px; color:var(--text); margin-top:4px;">
+        Tools Suite
+      </div>
     </h1>
+
     <p>Powerful desktop utilities built for privacy,<br>speed, and simplicity. No bloat. No tracking.</p>
+
     <div class="hero-btns">
       <a href="#tools" class="btn-primary">Explore Tools</a>
       <a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer" class="btn-secondary">View on GitHub</a>
@@ -617,89 +613,155 @@
 
 <section class="tools" id="tools">
   <div class="section-label">What we built</div>
-  <h2 class="section-title">The <span style="font-family:'Rajdhani',sans-serif; color:var(--accent);">Cipher<sup style="font-size:0.4em; font-family:'Rajdhani',sans-serif; color:rgba(0,245,196,0.8);">™</sup></span><br>Suite</h2>
+
+  <h2 class="section-title">
+    The <span style="font-family:'Rajdhani',sans-serif; color:var(--accent);">
+      Cipher<sup style="font-size:0.4em; font-family:'Rajdhani',sans-serif; color:rgba(0,245,196,0.8);">™</sup>
+    </span><br>Suite
+  </h2>
 
   <div class="tools-grid">
 
     <!-- Screen Recorder -->
     <div class="tool-card fade-in">
-      <div class="tool-icon"><img src="screen-recorder-icon.png" style="width:48px; height:48px; object-fit:contain; border-radius:8px;"></div>
-      <div class="tool-tag">v1.0 — Available</div>
+      <div class="tool-icon" aria-hidden="true">
+        <!-- inline SVG icon: screen -->
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+          <path d="M8 20h8"></path>
+          <path d="M12 16v4"></path>
+        </svg>
+      </div>
+
+      <div class="tool-tag">
+        <span class="pill">Available</span>
+        <span>Screen Recorder</span>
+      </div>
+
       <div class="tool-name">
         <div class="cipher-logo" style="font-size:18px;">
           <span class="word">Cipher</span><span class="tm" style="font-size:9px; margin-top:2px;">™</span>
           <span class="product-name" style="font-size:18px;">Screen Recorder</span>
         </div>
       </div>
-      <div class="tool-desc">Record your screen with zero quality loss. Lightweight, fast, no watermarks.</div>
+
+      <div class="tool-desc">
+        Record your screen with crisp output. Lightweight, fast, and offline.
+      </div>
+
       <ul class="tool-features">
         <li>Full screen & window capture</li>
-        <li>No watermarks ever</li>
-        <li>Lightweight & offline</li>
+        <li>No watermarks</li>
+        <li>Simple, clean UI</li>
       </ul>
-      <a href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher.Screen.Recorder.exe"
+
+      <!-- Use Releases page (always latest) -->
+      <a href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases"
          class="tool-download" target="_blank" rel="noopener noreferrer">
-        ↓ Download .exe
+        ↓ Download (Releases)
       </a>
     </div>
 
-    <!-- YT Downloader -->
+    <!-- YT Downloader (UPDATED) -->
     <div class="tool-card fade-in">
-      <div class="tool-icon"><img src="yt-downloader-icon.png" style="width:48px; height:48px; object-fit:contain; border-radius:8px;"></div>
-      <div class="tool-tag">v1.0 — Available</div>
+      <div class="tool-icon" aria-hidden="true">
+        <!-- inline SVG icon: youtube/play -->
+        <svg viewBox="0 0 24 24">
+          <path d="M21 12c0 2.2-.2 3.7-.5 4.7a3 3 0 0 1-2.1 2.1c-1 .3-2.5.5-6.4.5s-5.4-.2-6.4-.5A3 3 0 0 1 3 16.7C2.7 15.7 2.5 14.2 2.5 12s.2-3.7.5-4.7A3 3 0 0 1 5.1 5.2C6.1 4.9 7.6 4.7 11.5 4.7s5.4.2 6.4.5a3 3 0 0 1 2.1 2.1c.3 1 .5 2.5.5 4.7z"></path>
+          <path d="M10 9.5l6 2.5-6 2.5z"></path>
+        </svg>
+      </div>
+
+      <div class="tool-tag">
+        <span class="pill">Updated</span>
+        <span>YT Downloader</span>
+      </div>
+
       <div class="tool-name">
         <div class="cipher-logo" style="font-size:18px;">
           <span class="word">Cipher</span><span class="tm" style="font-size:9px; margin-top:2px;">™</span>
           <span class="product-name" style="font-size:18px;">YT Downloader</span>
         </div>
       </div>
-      <div class="tool-desc">Download YouTube videos in high quality with Chrome extension support.</div>
+
+      <div class="tool-desc">
+        Download YouTube videos/audio with smarter controls, better formats, subtitles, and optional Chrome handoff.
+      </div>
+
+      <!-- Updated feature bullets (generic but “more features”) -->
       <ul class="tool-features">
-        <li>4K / 1080p / 720p support</li>
-        <li>Chrome extension included</li>
-        <li>Playlist & subtitle support</li>
+        <li>Smart format selection (video + audio merge)</li>
+        <li>Subtitles (when available)</li>
+        <li>Playlist support + range controls</li>
+        <li>Audio-only downloads (when selected)</li>
+        <li>Optional Chrome extension handoff</li>
       </ul>
-      <a href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher.YT.Downloader.with.Extension.rar"
+
+      <!-- Use Releases page (always latest) -->
+      <a href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases"
          class="tool-download" target="_blank" rel="noopener noreferrer">
-        ↓ Download .rar
+        ↓ Download (Releases)
       </a>
     </div>
 
     <!-- DNS -->
     <div class="tool-card fade-in">
-      <div class="tool-icon">🌐</div>
-      <div class="tool-tag">Coming Soon</div>
+      <div class="tool-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22c4.97 0 9-4.03 9-9s-4.03-9-9-9-9 4.03-9 9 4.03 9 9 9z"></path>
+          <path d="M3 12h18"></path>
+          <path d="M12 3a15 15 0 0 1 0 18"></path>
+          <path d="M12 3a15 15 0 0 0 0 18"></path>
+        </svg>
+      </div>
+
+      <div class="tool-tag"><span class="pill" style="color:var(--muted); border-color:var(--border); background:transparent;">Coming Soon</span></div>
+
       <div class="tool-name">
         <div class="cipher-logo" style="font-size:18px;">
           <span class="word">Cipher</span><span class="tm" style="font-size:9px; margin-top:2px;">™</span>
           <span class="product-name" style="font-size:18px;">DNS</span>
         </div>
       </div>
+
       <div class="tool-desc">One-click DNS switching for faster browsing and better privacy.</div>
+
       <ul class="tool-features">
         <li>Multiple DNS presets</li>
-        <li>One click switch</li>
+        <li>One-click apply</li>
         <li>Speed test built-in</li>
       </ul>
+
       <span class="tool-coming">⏳ Releasing Soon</span>
     </div>
 
     <!-- Vault -->
     <div class="tool-card fade-in">
-      <div class="tool-icon">🔐</div>
-      <div class="tool-tag">Coming Soon</div>
+      <div class="tool-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+          <path d="M8 11V8a4 4 0 0 1 8 0v3"></path>
+          <path d="M12 16v2"></path>
+        </svg>
+      </div>
+
+      <div class="tool-tag"><span class="pill" style="color:var(--muted); border-color:var(--border); background:transparent;">Coming Soon</span></div>
+
       <div class="tool-name">
         <div class="cipher-logo" style="font-size:18px;">
           <span class="word">Cipher</span><span class="tm" style="font-size:9px; margin-top:2px;">™</span>
           <span class="product-name" style="font-size:18px;">Vault</span>
         </div>
       </div>
-      <div class="tool-desc">Encrypt and lock your sensitive files with military-grade security.</div>
+
+      <div class="tool-desc">Encrypt and lock sensitive files locally with strong security.</div>
+
       <ul class="tool-features">
-        <li>AES-256 encryption</li>
-        <li>Local only, no cloud</li>
+        <li>Local-only (no cloud)</li>
         <li>Password protected</li>
+        <li>Secure encryption workflow</li>
       </ul>
+
       <span class="tool-coming">⏳ Releasing Soon</span>
     </div>
 
@@ -707,12 +769,14 @@
 </section>
 
 <footer>
-  <div class="footer-logo">
-    <div class="cipher-logo" style="font-size:28px; justify-content:center;">
-      <span class="word">Cipher</span><span class="tm" style="font-size:13px; margin-top:4px;">™</span>
-    </div>
+  <div class="cipher-logo" style="font-size:28px; justify-content:center; margin-bottom: 10px;">
+    <span class="word">Cipher</span><span class="tm" style="font-size:13px; margin-top:4px;">™</span>
   </div>
-  <div class="footer-text">Built with ❤️ by Sajid Mehmood &nbsp;·&nbsp; Free forever &nbsp;·&nbsp; <a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration:none;">GitHub</a></div>
+  <div class="footer-text">
+    Built with ❤️ by Sajid Mehmood &nbsp;·&nbsp; Free forever &nbsp;·&nbsp;
+    <a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer"
+       style="color: var(--accent); text-decoration:none;">GitHub</a>
+  </div>
 </footer>
 
 <script>
