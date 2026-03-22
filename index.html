@@ -165,28 +165,38 @@ nav{
 }
 
 .tool-icon{
-  width:56px;height:56px;
+  width:64px;
+  height:64px;
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:12px;
+  border-radius:14px;
   background:rgba(0,245,196,.1);
   margin-bottom:20px;
   overflow:hidden;
-}
-
-.tool-icon svg{
-  width:26px;height:26px;
-  stroke:var(--accent);
-  fill:none;
-  stroke-width:2;
+  padding:8px;
+  border:1px solid rgba(0,245,196,.18);
 }
 
 .tool-icon-img{
-  width:56px;
-  height:56px;
-  object-fit:cover;
-  border-radius:12px;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:10px;
+}
+
+.release-badge{
+  display:inline-block;
+  margin-bottom:12px;
+  padding:4px 10px;
+  border:1px solid rgba(0,245,196,.35);
+  background:rgba(0,245,196,.08);
+  color:var(--accent);
+  font-family:'DM Mono',monospace;
+  font-size:11px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  border-radius:999px;
 }
 
 .tool-name{
@@ -304,9 +314,10 @@ footer{
 
     <div class="tool-card">
       <div class="tool-icon">
-        <img src="yt-downloader-icon.png" alt="Cipher YT Downloader icon" class="tool-icon-img">
+        <img src="assets/icons/cipher-yt-icon-128.png" alt="Cipher YT Downloader icon" class="tool-icon-img">
       </div>
 
+      <div class="release-badge">Latest release: V1.0</div>
       <div class="tool-name">Cipher&trade; YT Downloader</div>
       <div class="tool-desc">
         Download YouTube videos and audio with smart formats, subtitles, playlists, and Chrome extension support.
@@ -323,7 +334,11 @@ footer{
       <div class="tool-actions">
         <a href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher_YT_Downloader_Setup_v1.0.0.exe"
            class="tool-download" target="_blank" rel="noopener noreferrer">
-          &#8595; Download .exe
+          &#8595; Download V1.0
+        </a>
+        <a href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/tag/V1.0"
+           class="tool-download tool-secondary" target="_blank" rel="noopener noreferrer">
+          View Release
         </a>
       </div>
     </div>
@@ -331,9 +346,10 @@ footer{
 
     <div class="tool-card">
       <div class="tool-icon">
-        <img src="screen-recorder-icon.png" alt="Cipher Screen Recorder icon" class="tool-icon-img">
+        <img src="assets/icons/cipher-screen-recorder-icon-128.png" alt="Cipher Screen Recorder icon" class="tool-icon-img">
       </div>
 
+      <div class="release-badge">Latest release: V1.0</div>
       <div class="tool-name">Cipher&trade; Screen Recorder</div>
       <div class="tool-desc">
         Fast desktop recording with quality presets, mic/system audio options, and one-click export.
@@ -364,6 +380,7 @@ footer{
         <img src="assets/icons/ciphervault-icon-128.png" alt="CipherVault icon" class="tool-icon-img">
       </div>
 
+      <div class="release-badge">Latest release: v1.0.0</div>
       <div class="tool-name">Cipher&trade; Vault</div>
       <div class="tool-desc">
         Local-first encrypted password manager for Windows with Argon2id and AES-256-GCM security.
@@ -399,5 +416,7 @@ footer{
 
 </body>
 </html>
+
+
 
 
