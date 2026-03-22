@@ -1,9 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cipher — Secure Tools for Everyone</title>
+<title>Cipher - Secure Tools for Everyone</title>
+<meta name="description" content="Cipher desktop tools focused on privacy, speed, and simplicity.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/ciphervault-icon-32.png">
+<link rel="apple-touch-icon" href="assets/icons/ciphervault-icon-128.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -26,7 +29,6 @@ body{
   overflow-x:hidden;
 }
 
-/* NAV */
 nav{
   position:fixed;
   top:0;left:0;right:0;
@@ -72,7 +74,6 @@ nav{
 
 .nav-links a:hover{color:var(--accent);}
 
-/* HERO */
 .hero{
   min-height:100vh;
   display:flex;
@@ -107,7 +108,6 @@ nav{
 
 .btn-primary:hover{opacity:.8;}
 
-/* STATS */
 .stats{
   display:flex;
   justify-content:center;
@@ -135,7 +135,6 @@ nav{
   text-transform:uppercase;
 }
 
-/* TOOLS */
 .tools{
   padding:100px 40px;
   max-width:1200px;
@@ -166,13 +165,14 @@ nav{
 }
 
 .tool-icon{
-  width:48px;height:48px;
+  width:56px;height:56px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:12px;
   background:rgba(0,245,196,.1);
   margin-bottom:20px;
+  overflow:hidden;
 }
 
 .tool-icon svg{
@@ -180,6 +180,13 @@ nav{
   stroke:var(--accent);
   fill:none;
   stroke-width:2;
+}
+
+.tool-icon-img{
+  width:56px;
+  height:56px;
+  object-fit:cover;
+  border-radius:12px;
 }
 
 .tool-name{
@@ -207,6 +214,12 @@ nav{
   padding:4px 0;
 }
 
+.tool-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
 .tool-download{
   display:inline-block;
   background:rgba(0,245,196,.1);
@@ -225,7 +238,16 @@ nav{
   color:#000;
 }
 
-/* FOOTER */
+.tool-secondary{
+  border-color:var(--border);
+  color:var(--text);
+}
+
+.tool-secondary:hover{
+  border-color:var(--accent);
+  color:#000;
+}
+
 footer{
   text-align:center;
   padding:40px;
@@ -245,7 +267,7 @@ footer{
 <body>
 
 <nav>
-  <div class="cipher-logo">Cipher<span class="tm">™</span></div>
+  <div class="cipher-logo">Cipher<span class="tm">&trade;</span></div>
   <ul class="nav-links">
     <li><a href="#tools">Tools</a></li>
     <li><a href="https://github.com/aboutsajid" target="_blank">GitHub</a></li>
@@ -254,7 +276,7 @@ footer{
 
 <section class="hero">
   <div>
-    <h1>Cipher™ Tools</h1>
+    <h1>Cipher&trade; Tools</h1>
     <p>Powerful desktop utilities built for privacy, speed, and simplicity.</p>
     <a href="#tools" class="btn-primary">Explore Tools</a>
   </div>
@@ -262,8 +284,8 @@ footer{
 
 <div class="stats">
   <div class="stat">
-    <span class="stat-num">4</span>
-    <span class="stat-label">Tools Built</span>
+    <span class="stat-num">2</span>
+    <span class="stat-label">Tools Listed</span>
   </div>
   <div class="stat">
     <span class="stat-num">100%</span>
@@ -280,7 +302,6 @@ footer{
 
   <div class="tools-grid">
 
-    <!-- YT DOWNLOADER -->
     <div class="tool-card">
       <div class="tool-icon">
         <svg viewBox="0 0 24 24">
@@ -289,7 +310,7 @@ footer{
         </svg>
       </div>
 
-      <div class="tool-name">Cipher™ YT Downloader</div>
+      <div class="tool-name">Cipher&trade; YT Downloader</div>
       <div class="tool-desc">
         Download YouTube videos and audio with smart formats, subtitles, playlists, and Chrome extension support.
       </div>
@@ -297,24 +318,58 @@ footer{
       <ul class="tool-features">
         <li>Smart video + audio merging</li>
         <li>Subtitle support</li>
-        <li>Playlist & range download</li>
+        <li>Playlist and range download</li>
         <li>Audio-only mode</li>
         <li>Chrome extension handoff</li>
       </ul>
 
-      <a href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher_YT_Downloader_Setup_v1.0.0.exe"
-         class="tool-download" target="_blank">
-        ↓ Download .exe
-      </a>
+      <div class="tool-actions">
+        <a href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher_YT_Downloader_Setup_v1.0.0.exe"
+           class="tool-download" target="_blank" rel="noopener noreferrer">
+          &#8595; Download .exe
+        </a>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-icon">
+        <img src="assets/icons/ciphervault-icon-128.png" alt="CipherVault icon" class="tool-icon-img">
+      </div>
+
+      <div class="tool-name">Cipher&trade; Vault</div>
+      <div class="tool-desc">
+        Local-first encrypted password manager for Windows with Argon2id and AES-256-GCM security.
+      </div>
+
+      <ul class="tool-features">
+        <li>Encrypted vault storage (.cipherpw)</li>
+        <li>Password generator and security audit</li>
+        <li>Encrypted backup and import/export</li>
+        <li>Clipboard auto-clear and auto-lock</li>
+        <li>Built with .NET 8 + WPF</li>
+      </ul>
+
+      <div class="tool-actions">
+        <a href="https://github.com/aboutsajid/Cipher-Vault/releases/download/v1.0.0/CipherVault-Setup.exe"
+           class="tool-download" target="_blank" rel="noopener noreferrer">
+          &#8595; Download v1.0.0
+        </a>
+        <a href="https://github.com/aboutsajid/Cipher-Vault/releases/tag/v1.0.0"
+           class="tool-download tool-secondary" target="_blank" rel="noopener noreferrer">
+          View Release
+        </a>
+      </div>
     </div>
 
   </div>
 </section>
 
 <footer>
-  Built with ❤️ by Sajid Mehmood · 
-  <a href="https://github.com/aboutsajid" target="_blank" style="color:var(--accent);text-decoration:none;">GitHub</a>
+  Built by Sajid Mehmood &middot;
+  <a href="https://github.com/aboutsajid" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;">GitHub</a>
 </footer>
 
 </body>
 </html>
+
+
