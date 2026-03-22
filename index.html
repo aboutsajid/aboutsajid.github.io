@@ -702,7 +702,7 @@ footer {
       <article class="tool-card reveal">
         <div class="tool-top">
           <div class="tool-icon"><img src="assets/icons/cipher-yt-icon-128.png" alt="Cipher YT Downloader icon"></div>
-          <span class="release-badge" data-release-badge="yt">Latest release: V1.0</span>
+          <span class="release-badge" data-release-badge="yt">Latest release: v1.0.0</span>
         </div>
         <h4>Cipher&trade; YT Downloader</h4>
         <p class="tool-desc">Download YouTube videos and audio with subtitles, playlist ranges, extension handoff, and merged A/V outputs.</p>
@@ -718,7 +718,7 @@ footer {
         </ul>
         <div class="tool-meta" data-release-meta="yt">Updated from GitHub release feed</div>
         <div class="tool-actions">
-          <a class="tool-btn primary" data-download-link="yt" href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher_YT_Downloader_Setup_v1.0.0.exe" target="_blank" rel="noopener noreferrer">Download V1.0</a>
+          <a class="tool-btn primary" data-download-link="yt" href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher_YT_Downloader_Setup_v1.0.0.exe" target="_blank" rel="noopener noreferrer">Download v1.0.0</a>
           <a class="tool-btn secondary" data-release-link="yt" href="https://github.com/aboutsajid/Cipher-YT-Downloader/releases/tag/V1.0" target="_blank" rel="noopener noreferrer">View Release</a>
         </div>
       </article>
@@ -726,7 +726,7 @@ footer {
       <article class="tool-card reveal" style="transition-delay: 0.08s;">
         <div class="tool-top">
           <div class="tool-icon"><img src="assets/icons/cipher-screen-recorder-icon-128.png" alt="Cipher Screen Recorder icon"></div>
-          <span class="release-badge" data-release-badge="recorder">Latest release: V1.0</span>
+          <span class="release-badge" data-release-badge="recorder">Latest release: v1.0.0</span>
         </div>
         <h4>Cipher&trade; Screen Recorder</h4>
         <p class="tool-desc">Record windows or full screen with microphone/system audio and practical export settings for daily workflows.</p>
@@ -742,7 +742,7 @@ footer {
         </ul>
         <div class="tool-meta" data-release-meta="recorder">Updated from GitHub release feed</div>
         <div class="tool-actions">
-          <a class="tool-btn primary" data-download-link="recorder" href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher.Screen.Recorder.exe" target="_blank" rel="noopener noreferrer">Download V1.0</a>
+          <a class="tool-btn primary" data-download-link="recorder" href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher.Screen.Recorder.exe" target="_blank" rel="noopener noreferrer">Download v1.0.0</a>
           <a class="tool-btn secondary" data-release-link="recorder" href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/tag/V1.0" target="_blank" rel="noopener noreferrer">View Release</a>
         </div>
       </article>
@@ -850,13 +850,13 @@ footer {
 const TOOL_CONFIG = {
   yt: {
     repo: "aboutsajid/Cipher-YT-Downloader",
-    fallbackTag: "V1.0",
+    fallbackTag: "v1.0.0",
     fallbackReleaseUrl: "https://github.com/aboutsajid/Cipher-YT-Downloader/releases/tag/V1.0",
     fallbackDownloadUrl: "https://github.com/aboutsajid/Cipher-YT-Downloader/releases/download/V1.0/Cipher_YT_Downloader_Setup_v1.0.0.exe"
   },
   recorder: {
     repo: "aboutsajid/Cipher-Screen-Recorder",
-    fallbackTag: "V1.0",
+    fallbackTag: "v1.0.0",
     fallbackReleaseUrl: "https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/tag/V1.0",
     fallbackDownloadUrl: "https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher.Screen.Recorder.exe"
   },
@@ -867,6 +867,17 @@ const TOOL_CONFIG = {
     fallbackDownloadUrl: "https://github.com/aboutsajid/Cipher-Vault/releases/download/v1.0.0/CipherVault-Setup.exe"
   }
 };
+
+function normalizeTag(tag) {
+  if (!tag) return "v1.0.0";
+  const raw = String(tag).trim();
+  const match = raw.match(/^v?(\d+)\.(\d+)(?:\.(\d+))?$/i);
+  if (!match) return raw;
+  const major = match[1];
+  const minor = match[2];
+  const patch = match[3] || "0";
+  return `v${major}.${minor}.${patch}`;
+}
 
 function pickAssetUrl(assets, fallback) {
   if (!Array.isArray(assets) || assets.length === 0) return fallback;
@@ -886,11 +897,12 @@ function applyRelease(toolId, payload) {
   const download = document.querySelector(`[data-download-link="${toolId}"]`);
   const release = document.querySelector(`[data-release-link="${toolId}"]`);
   const meta = document.querySelector(`[data-release-meta="${toolId}"]`);
+  const version = normalizeTag(payload.tag);
 
-  if (badge) badge.textContent = `Latest release: ${payload.tag}`;
+  if (badge) badge.textContent = `Latest release: ${version}`;
   if (download) {
     download.href = payload.downloadUrl;
-    download.textContent = `Download ${payload.tag}`;
+    download.textContent = `Download ${version}`;
   }
   if (release) release.href = payload.releaseUrl;
   if (meta) meta.textContent = formatDate(payload.publishedAt);
@@ -901,7 +913,7 @@ function applyVaultFeatured(payload) {
   const updated = document.getElementById("featured-updated");
   const download = document.getElementById("featured-download");
 
-  if (version) version.textContent = payload.tag;
+  if (version) version.textContent = normalizeTag(payload.tag);
   if (updated) updated.textContent = formatDate(payload.publishedAt);
   if (download) download.href = payload.downloadUrl;
 }
@@ -966,3 +978,4 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
+
