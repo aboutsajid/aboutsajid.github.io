@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cipher Tools | Privacy-First Windows Utilities</title>
-<meta name="description" content="Cipher desktop tools for Windows: password management, screen recording, and media downloads.">
+<meta name="description" content="Cipher desktop tools for Windows: password management, screen recording, video compression, and media downloads.">
 <meta name="theme-color" content="#e8f7ef">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/ciphervault-icon-32.png">
 <link rel="apple-touch-icon" href="assets/icons/ciphervault-icon-128.png">
@@ -683,7 +683,7 @@ footer {
         <a class="btn btn-secondary" href="#guides">Install Guides</a>
       </div>
       <div class="stats">
-        <div class="stat"><strong>3</strong><span>Tools Live</span></div>
+        <div class="stat"><strong>4</strong><span>Tools Live</span></div>
         <div class="stat"><strong>100%</strong><span>Free</span></div>
         <div class="stat"><strong>0</strong><span>Telemetry</span></div>
       </div>
@@ -782,6 +782,30 @@ footer {
           <a class="tool-btn secondary" data-release-link="vault" href="https://github.com/aboutsajid/Cipher-Vault/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">View Release</a>
         </div>
       </article>
+
+      <article class="tool-card reveal" style="transition-delay: 0.24s;">
+        <div class="tool-top">
+          <div class="tool-icon"><img src="assets/icons/cipher-compress-icon-128.png" alt="Cipher Compress icon"></div>
+          <span class="release-badge" data-release-badge="compress">Latest release: v1.0.0</span>
+        </div>
+        <h4>Cipher&trade; Compress</h4>
+        <p class="tool-desc">Offline-first video compressor and converter with GPU acceleration, smart no-gain skip, and per-file queue progress.</p>
+        <div class="tool-tags">
+          <span class="tag">Windows</span>
+          <span class="tag">Compression</span>
+          <span class="tag">Offline</span>
+        </div>
+        <ul class="tool-points">
+          <li>MP4, MOV, MKV, WebM and AVI support</li>
+          <li>Batch processing with parallel workers</li>
+          <li>Automatic integrity checks after encode</li>
+        </ul>
+        <div class="tool-meta" data-release-meta="compress">Updated from GitHub release feed</div>
+        <div class="tool-actions">
+          <a class="tool-btn primary" data-download-link="compress" href="https://github.com/aboutsajid/Cipher-Compress/releases" target="_blank" rel="noopener noreferrer">Download v1.0.0</a>
+          <a class="tool-btn secondary" data-release-link="compress" href="https://github.com/aboutsajid/Cipher-Compress/releases" target="_blank" rel="noopener noreferrer">View Release</a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -847,6 +871,15 @@ footer {
           <li>Choose format and quality, then start download or audio-only conversion.</li>
         </ol>
       </details>
+
+      <details class="guide reveal" style="transition-delay: 0.18s;">
+        <summary>Cipher Compress setup</summary>
+        <ol>
+          <li>Open the Cipher Compress release page and download the latest setup file.</li>
+          <li>Install the app, then select input files or folder and choose output folder.</li>
+          <li>Pick a compression profile, run queue, and use result report to verify savings.</li>
+        </ol>
+      </details>
     </div>
   </div>
 </section>
@@ -882,6 +915,12 @@ const TOOL_CONFIG = {
     fallbackTag: "v1.0.0",
     fallbackReleaseUrl: "https://github.com/aboutsajid/Cipher-Vault/releases/tag/v1.0.0",
     fallbackDownloadUrl: "https://github.com/aboutsajid/Cipher-Vault/releases/download/v1.0.0/CipherVault-Setup.exe"
+  },
+  compress: {
+    repo: "aboutsajid/Cipher-Compress",
+    fallbackTag: "v1.0.0",
+    fallbackReleaseUrl: "https://github.com/aboutsajid/Cipher-Compress/releases",
+    fallbackDownloadUrl: "https://github.com/aboutsajid/Cipher-Compress/releases"
   }
 };
 
