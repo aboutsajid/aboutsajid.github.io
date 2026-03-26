@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cipher Tools | Privacy-First Windows Utilities</title>
-<meta name="description" content="Cipher desktop tools for Windows: password management, screen recording, video compression, and media downloads.">
+<meta name="description" content="Cipher desktop tools for Windows: AI workspace, password management, screen recording, video compression, and media downloads.">
 <meta name="theme-color" content="#e8f7ef">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/ciphervault-icon-32.png">
 <link rel="apple-touch-icon" href="assets/icons/ciphervault-icon-128.png">
@@ -683,7 +683,7 @@ footer {
         <a class="btn btn-secondary" href="#guides">Install Guides</a>
       </div>
       <div class="stats">
-        <div class="stat"><strong>4</strong><span>Tools Live</span></div>
+        <div class="stat"><strong>5</strong><span>Tools Live</span></div>
         <div class="stat"><strong>100%</strong><span>Free</span></div>
         <div class="stat"><strong>0</strong><span>Telemetry</span></div>
       </div>
@@ -806,6 +806,30 @@ footer {
           <a class="tool-btn secondary" data-release-link="compress" href="https://github.com/aboutsajid/Cipher-Compress/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">View Release</a>
         </div>
       </article>
+
+      <article class="tool-card reveal" style="transition-delay: 0.32s;">
+        <div class="tool-top">
+          <div class="tool-icon"><img src="assets/icons/cipher-ai-icon-128.png" alt="Cipher Ai icon"></div>
+          <span class="release-badge" data-release-badge="cipherai">Latest release: v1.0.1</span>
+        </div>
+        <h4>Cipher&trade; Ai</h4>
+        <p class="tool-desc">Desktop AI workspace for OpenRouter and Ollama with chat management, compare mode, templates, attachments, and code workflow support.</p>
+        <div class="tool-tags">
+          <span class="tag">Windows</span>
+          <span class="tag">AI Workspace</span>
+          <span class="tag">OpenRouter + Ollama</span>
+        </div>
+        <ul class="tool-points">
+          <li>OpenRouter cloud and Ollama local model routing</li>
+          <li>Prompt templates, file attachments, and compare mode</li>
+          <li>No API key required for Ollama-only usage</li>
+        </ul>
+        <div class="tool-meta" data-release-meta="cipherai">Updated from GitHub release feed</div>
+        <div class="tool-actions">
+          <a class="tool-btn primary" data-download-link="cipherai" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.1/Cipher-Ai-Setup-1.0.1.exe" target="_blank" rel="noopener noreferrer">Download v1.0.1</a>
+          <a class="tool-btn secondary" data-release-link="cipherai" href="https://github.com/aboutsajid/Cipher-Ai/releases/tag/v1.0.1" target="_blank" rel="noopener noreferrer">View Release</a>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -880,6 +904,15 @@ footer {
           <li>Pick a compression profile, run queue, and use result report to verify savings.</li>
         </ol>
       </details>
+
+      <details class="guide reveal" style="transition-delay: 0.24s;">
+        <summary>Cipher Ai setup</summary>
+        <ol>
+          <li>Download the latest Cipher Ai setup executable from the release page.</li>
+          <li>Install and launch, then open Settings to configure OpenRouter key or Ollama local mode.</li>
+          <li>Choose your model in the top selector and start a new chat workflow.</li>
+        </ol>
+      </details>
     </div>
   </div>
 </section>
@@ -921,6 +954,12 @@ const TOOL_CONFIG = {
     fallbackTag: "v1.0.0",
     fallbackReleaseUrl: "https://github.com/aboutsajid/Cipher-Compress/releases/tag/v1.0.0",
     fallbackDownloadUrl: "https://github.com/aboutsajid/Cipher-Compress/releases/download/v1.0.0/Cipher.Compress.Setup.1.0.0.exe"
+  },
+  cipherai: {
+    repo: "aboutsajid/Cipher-Ai",
+    fallbackTag: "v1.0.1",
+    fallbackReleaseUrl: "https://github.com/aboutsajid/Cipher-Ai/releases/tag/v1.0.1",
+    fallbackDownloadUrl: "https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.1/Cipher-Ai-Setup-1.0.1.exe"
   }
 };
 
