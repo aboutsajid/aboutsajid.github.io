@@ -750,19 +750,18 @@ footer {
 
     <aside class="featured-card reveal" style="transition-delay: 0.08s;">
       <div>
-        <div class="featured-title">Featured release</div>
+        <div class="featured-title">Featured app</div>
         <h2>
           <span class="brand-title">
             <span class="cipher-logo"><span class="word">Cipher</span><span class="tm">&trade;</span></span>
             <span class="brand-name">Ai</span>
           </span>
-          <span id="featured-version">v1.0.0</span>
         </h2>
-        <p>Free, no-subscription desktop AI workspace with no telemetry, Ollama no-key mode, and fast chat workflows for daily use.</p>
+        <p>Free forever desktop AI workspace with no subscription, no telemetry, and Ollama mode without OpenRouter API key.</p>
       </div>
       <div class="featured-meta">
         <div class="live-pill" id="featured-updated">Live release feed</div>
-        <a id="featured-download" class="btn btn-primary" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download Installer</a>
+        <a id="featured-download" class="btn btn-primary" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download Installer (.exe)</a>
       </div>
     </aside>
   </div>
@@ -1109,11 +1108,9 @@ function applyRelease(toolId, payload) {
 }
 
 function applyFeaturedRelease(payload) {
-  const version = document.getElementById("featured-version");
   const updated = document.getElementById("featured-updated");
   const download = document.getElementById("featured-download");
 
-  if (version) version.textContent = normalizeTag(payload.tag);
   if (updated) updated.textContent = formatDate(payload.publishedAt);
   if (download) download.href = payload.downloadUrl;
 }
