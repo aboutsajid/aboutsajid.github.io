@@ -762,7 +762,7 @@ footer {
       </div>
       <div class="featured-meta">
         <div class="live-pill" id="featured-updated">Live release feed</div>
-        <a id="featured-download" class="btn btn-primary" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download Latest</a>
+        <a id="featured-download" class="btn btn-primary" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download Installer</a>
       </div>
     </aside>
   </div>
@@ -923,7 +923,7 @@ footer {
         </ul>
         <div class="tool-meta" data-release-meta="cipherai">Updated from GitHub release feed</div>
         <div class="tool-actions">
-          <a class="tool-btn primary" data-download-link="cipherai" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download v1.0.0</a>
+          <a class="tool-btn primary" data-download-link="cipherai" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download Installer v1.0.0</a>
           <a class="tool-btn secondary" data-release-link="cipherai" href="https://github.com/aboutsajid/Cipher-Ai/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">View Release</a>
         </div>
       </article>
@@ -1074,8 +1074,14 @@ function normalizeTag(tag) {
 
 function pickAssetUrl(assets, fallback) {
   if (!Array.isArray(assets) || assets.length === 0) return fallback;
-  const preferred = assets.find(a => /setup|installer|\.exe$/i.test(a.name));
-  return (preferred || assets[0]).browser_download_url || fallback;
+  const setupAsset = assets.find(a => /(?:^|[-_.\s])(setup|installer)(?:[-_.\s]|$)/i.test(String(a.name || "")) && a.browser_download_url);
+  if (setupAsset) return setupAsset.browser_download_url;
+
+  const exeAsset = assets.find(a => /\.exe$/i.test(String(a.name || "")) && !/portable/i.test(String(a.name || "")) && a.browser_download_url);
+  if (exeAsset) return exeAsset.browser_download_url;
+
+  const fallbackAsset = assets.find(a => a.browser_download_url);
+  return (fallbackAsset && fallbackAsset.browser_download_url) || fallback;
 }
 
 function formatDate(input) {
@@ -1091,11 +1097,12 @@ function applyRelease(toolId, payload) {
   const release = document.querySelector(`[data-release-link="${toolId}"]`);
   const meta = document.querySelector(`[data-release-meta="${toolId}"]`);
   const version = normalizeTag(payload.tag);
+  const downloadLabel = toolId === "cipherai" ? "Download Installer" : "Download";
 
   if (badge) badge.textContent = `Latest release: ${version}`;
   if (download) {
     download.href = payload.downloadUrl;
-    download.textContent = `Download ${version}`;
+    download.textContent = `${downloadLabel} ${version}`;
   }
   if (release) release.href = payload.releaseUrl;
   if (meta) meta.textContent = formatDate(payload.publishedAt);
