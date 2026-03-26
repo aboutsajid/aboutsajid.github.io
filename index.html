@@ -333,6 +333,32 @@ nav {
   line-height: 1.7;
 }
 
+.featured-points {
+  list-style: none;
+  display: grid;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.featured-points li {
+  position: relative;
+  padding-left: 14px;
+  color: #c6e9e2;
+  line-height: 1.55;
+  font-size: 0.9rem;
+}
+
+.featured-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #9fead9;
+}
+
 .featured-meta {
   margin-top: 20px;
   display: flex;
@@ -780,10 +806,16 @@ footer {
           </span>
         </h2>
         <p>Free forever desktop AI workspace with no subscription, no telemetry, and Ollama mode without OpenRouter API key.</p>
+        <ul class="featured-points">
+          <li>OpenRouter + Ollama routing with no key needed for Ollama-only mode</li>
+          <li>Router mode, compare mode, prompt templates, and quick model switching</li>
+          <li>File attachments, multi-chat workspace, and export-ready workflow</li>
+          <li>Privacy-first desktop usage with zero monthly fee</li>
+        </ul>
       </div>
       <div class="featured-meta">
         <div class="live-pill" id="featured-updated">Live release feed</div>
-        <a id="featured-download" class="btn btn-primary" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download Installer (.exe)</a>
+        <a id="featured-download" class="btn btn-primary" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download v1.0.0</a>
       </div>
     </aside>
   </div>
@@ -944,7 +976,7 @@ footer {
         </ul>
         <div class="tool-meta" data-release-meta="cipherai">Updated from GitHub release feed</div>
         <div class="tool-actions">
-          <a class="tool-btn primary" data-download-link="cipherai" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download Installer v1.0.0</a>
+          <a class="tool-btn primary" data-download-link="cipherai" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download v1.0.0</a>
           <a class="tool-btn secondary" data-release-link="cipherai" href="https://github.com/aboutsajid/Cipher-Ai/releases/tag/v1.0.0" target="_blank" rel="noopener noreferrer">View Release</a>
         </div>
       </article>
@@ -1118,7 +1150,7 @@ function applyRelease(toolId, payload) {
   const release = document.querySelector(`[data-release-link="${toolId}"]`);
   const meta = document.querySelector(`[data-release-meta="${toolId}"]`);
   const version = normalizeTag(payload.tag);
-  const downloadLabel = toolId === "cipherai" ? "Download Installer" : "Download";
+  const downloadLabel = "Download";
 
   if (badge) badge.textContent = `Latest release: ${version}`;
   if (download) {
