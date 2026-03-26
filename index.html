@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Sora:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #f2fbf6;
@@ -88,17 +89,75 @@ nav {
 .logo {
   display: inline-flex;
   align-items: flex-start;
-  gap: 4px;
-  font-family: "Chakra Petch", sans-serif;
+  gap: 0;
+}
+
+.cipher-logo {
+  display: inline-flex;
+  align-items: flex-start;
+  line-height: 1;
+}
+
+.cipher-logo .word {
+  font-family: "Rajdhani", sans-serif;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--accent-strong);
-  text-transform: uppercase;
+  position: relative;
+}
+
+.cipher-logo .word::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
+.cipher-logo .tm {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  color: rgba(15, 158, 131, 0.8);
+  margin-left: -1px;
+  margin-top: 0.1em;
+  line-height: 1;
+  font-size: 0.45em;
 }
 
 .logo .tm {
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 2px;
+}
+
+.brand-title {
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.brand-title .brand-name {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  margin-left: 6px;
+  color: currentColor;
+}
+
+.featured-card .cipher-logo .word {
+  color: #00f5c4;
+}
+
+.featured-card .cipher-logo .word::after {
+  background: linear-gradient(90deg, #00f5c4, transparent);
+}
+
+.featured-card .cipher-logo .tm {
+  color: rgba(0, 245, 196, 0.8);
+}
+
+.featured-card .brand-title .brand-name {
+  color: #e8e8f0;
 }
 
 .nav-links {
@@ -661,7 +720,7 @@ footer {
 <div class="nav-wrap">
   <div class="container">
     <nav>
-      <div class="logo">Cipher<span class="tm">&trade;</span></div>
+      <div class="logo cipher-logo"><span class="word">Cipher</span><span class="tm">&trade;</span></div>
       <ul class="nav-links">
         <li><a href="#tools">Tools</a></li>
         <li><a href="#trust">Trust</a></li>
@@ -692,7 +751,13 @@ footer {
     <aside class="featured-card reveal" style="transition-delay: 0.08s;">
       <div>
         <div class="featured-title">Featured release</div>
-        <h2>Cipher&trade; Ai <span id="featured-version">v1.0.0</span></h2>
+        <h2>
+          <span class="brand-title">
+            <span class="cipher-logo"><span class="word">Cipher</span><span class="tm">&trade;</span></span>
+            <span class="brand-name">Ai</span>
+          </span>
+          <span id="featured-version">v1.0.0</span>
+        </h2>
         <p>Free, no-subscription desktop AI workspace with no telemetry, Ollama no-key mode, and fast chat workflows for daily use.</p>
       </div>
       <div class="featured-meta">
@@ -716,7 +781,12 @@ footer {
           <div class="tool-icon"><img src="assets/icons/cipher-yt-icon-128.png" alt="Cipher YT Downloader icon"></div>
           <span class="release-badge" data-release-badge="yt">Latest release: v1.0.0</span>
         </div>
-        <h4>Cipher&trade; YT Downloader</h4>
+        <h4>
+          <span class="brand-title">
+            <span class="cipher-logo"><span class="word">Cipher</span><span class="tm">&trade;</span></span>
+            <span class="brand-name">YT Downloader</span>
+          </span>
+        </h4>
         <p class="tool-desc">Free, easy-to-use YouTube downloader for Windows with fast video/audio export, subtitle support, and clean output controls.</p>
         <div class="tool-tags">
           <span class="tag">Free Forever</span>
@@ -741,7 +811,12 @@ footer {
           <div class="tool-icon"><img src="assets/icons/cipher-screen-recorder-icon-128.png" alt="Cipher Screen Recorder icon"></div>
           <span class="release-badge" data-release-badge="recorder">Latest release: v1.0.0</span>
         </div>
-        <h4>Cipher&trade; Screen Recorder</h4>
+        <h4>
+          <span class="brand-title">
+            <span class="cipher-logo"><span class="word">Cipher</span><span class="tm">&trade;</span></span>
+            <span class="brand-name">Screen Recorder</span>
+          </span>
+        </h4>
         <p class="tool-desc">Free screen recorder with simple controls for window or full-screen capture, mic/system audio, and quick export workflow.</p>
         <div class="tool-tags">
           <span class="tag">Free Forever</span>
@@ -766,7 +841,12 @@ footer {
           <div class="tool-icon"><img src="assets/icons/ciphervault-icon-128.png" alt="Cipher Vault icon"></div>
           <span class="release-badge" data-release-badge="vault">Latest release: v1.0.0</span>
         </div>
-        <h4>Cipher&trade; Vault</h4>
+        <h4>
+          <span class="brand-title">
+            <span class="cipher-logo"><span class="word">Cipher</span><span class="tm">&trade;</span></span>
+            <span class="brand-name">Vault</span>
+          </span>
+        </h4>
         <p class="tool-desc">Free local password manager with strong encryption, simple unlock flow, secure backup, and browser save integration.</p>
         <div class="tool-tags">
           <span class="tag">Free Forever</span>
@@ -791,7 +871,12 @@ footer {
           <div class="tool-icon"><img src="assets/icons/cipher-compress-icon-128.png" alt="Cipher Compress icon"></div>
           <span class="release-badge" data-release-badge="compress">Latest release: v1.0.0</span>
         </div>
-        <h4>Cipher&trade; Compress</h4>
+        <h4>
+          <span class="brand-title">
+            <span class="cipher-logo"><span class="word">Cipher</span><span class="tm">&trade;</span></span>
+            <span class="brand-name">Compress</span>
+          </span>
+        </h4>
         <p class="tool-desc">Free video compressor and converter with easy presets, GPU acceleration, and batch queue workflow for faster results.</p>
         <div class="tool-tags">
           <span class="tag">Free Forever</span>
@@ -816,7 +901,12 @@ footer {
           <div class="tool-icon"><img src="assets/icons/cipher-ai-icon-128.png" alt="Cipher Ai icon"></div>
           <span class="release-badge" data-release-badge="cipherai">Latest release: v1.0.0</span>
         </div>
-        <h4>Cipher&trade; Ai</h4>
+        <h4>
+          <span class="brand-title">
+            <span class="cipher-logo"><span class="word">Cipher</span><span class="tm">&trade;</span></span>
+            <span class="brand-name">Ai</span>
+          </span>
+        </h4>
         <p class="tool-desc">Free desktop AI workspace with simple setup, privacy-first defaults, and OpenRouter + Ollama support for fast daily workflows.</p>
         <div class="tool-tags">
           <span class="tag">Free Forever</span>
