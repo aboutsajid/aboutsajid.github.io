@@ -692,12 +692,12 @@ footer {
     <aside class="featured-card reveal" style="transition-delay: 0.08s;">
       <div>
         <div class="featured-title">Featured release</div>
-        <h2>Cipher&trade; Vault <span id="featured-version">v1.0.0</span></h2>
-        <p>Encrypted local password manager using Argon2id and AES-256-GCM, with secure backup and browser capture flow.</p>
+        <h2>Cipher&trade; Ai <span id="featured-version">v1.0.0</span></h2>
+        <p>Desktop AI workspace with OpenRouter and Ollama routing, prompt templates, attachments, and compare mode support.</p>
       </div>
       <div class="featured-meta">
         <div class="live-pill" id="featured-updated">Live release feed</div>
-        <a id="featured-download" class="btn btn-primary" href="https://github.com/aboutsajid/Cipher-Vault/releases/download/v1.0.0/CipherVault-Setup.exe" target="_blank" rel="noopener noreferrer">Download Latest</a>
+        <a id="featured-download" class="btn btn-primary" href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" target="_blank" rel="noopener noreferrer">Download Latest</a>
       </div>
     </aside>
   </div>
@@ -962,6 +962,7 @@ const TOOL_CONFIG = {
     fallbackDownloadUrl: "https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe"
   }
 };
+const FEATURED_TOOL_ID = "cipherai";
 
 function normalizeTag(tag) {
   if (!tag) return "v1.0.0";
@@ -1003,7 +1004,7 @@ function applyRelease(toolId, payload) {
   if (meta) meta.textContent = formatDate(payload.publishedAt);
 }
 
-function applyVaultFeatured(payload) {
+function applyFeaturedRelease(payload) {
   const version = document.getElementById("featured-version");
   const updated = document.getElementById("featured-updated");
   const download = document.getElementById("featured-download");
@@ -1029,7 +1030,7 @@ async function refreshReleases() {
 
       if (!res.ok) {
         applyRelease(toolId, fallback);
-        if (toolId === "vault") applyVaultFeatured(fallback);
+        if (toolId === FEATURED_TOOL_ID) applyFeaturedRelease(fallback);
         return;
       }
 
@@ -1042,10 +1043,10 @@ async function refreshReleases() {
       };
 
       applyRelease(toolId, payload);
-      if (toolId === "vault") applyVaultFeatured(payload);
+      if (toolId === FEATURED_TOOL_ID) applyFeaturedRelease(payload);
     } catch {
       applyRelease(toolId, fallback);
-      if (toolId === "vault") applyVaultFeatured(fallback);
+      if (toolId === FEATURED_TOOL_ID) applyFeaturedRelease(fallback);
     }
   });
 
