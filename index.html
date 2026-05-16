@@ -1,6 +1,3 @@
-
-html
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,9 +26,10 @@ html
   }
   </script>
 
+  <link rel="icon" type="image/png" href="https://aboutsajid.github.io/assets/branding/cipher-og-1200x630.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300..700&family=JetBrains+Mono:wght@400;500&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -43,13 +41,14 @@ html
       --text: #f0ede4;
       --text-muted: #a8b0ad;
       --text-dim: #6a7775;
-      --accent: #5ce0b8;
-      --accent-dim: #0f9e83;
-      --accent-glow: rgba(92, 224, 184, 0.15);
+      --accent: #00f5c4;
+      --accent-dim: #0F9E83;
+      --accent-glow: rgba(0, 245, 196, 0.15);
       --warn: #e07b5c;
       --serif: 'Fraunces', Georgia, serif;
       --sans: 'Manrope', system-ui, sans-serif;
       --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --display: 'Rajdhani', sans-serif;
       --radius: 4px;
       --max-w: 1180px;
     }
@@ -72,9 +71,12 @@ html
     /* Nav */
     .nav { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(10, 22, 20, 0.78); border-bottom: 1px solid var(--border); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; max-width: var(--max-w); margin: 0 auto; }
-    .brand { font-family: var(--serif); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; }
-    .brand-mark { width: 24px; height: 24px; border: 1.5px solid var(--accent); border-radius: 50%; position: relative; }
-    .brand-mark::after { content: ''; position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; transform: translate(-50%, -50%); }
+    .brand { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: 0.12em; display: inline-flex; align-items: flex-start; line-height: 1; }
+    .cipher-logo { display: inline-flex; align-items: flex-start; line-height: 1; font-family: var(--display); }
+    .cipher-logo .word { font-weight: 700; letter-spacing: 0.12em; color: var(--accent); position: relative; }
+    .cipher-logo .word::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, var(--accent), transparent); }
+    .cipher-logo .tm { font-weight: 600; color: rgba(0, 245, 196, 0.8); margin-left: 2px; margin-top: 0.15em; font-size: 0.46em; line-height: 1; }
+    .cipher-logo .product-name { font-weight: 600; color: #e8e8f0; margin-left: 10px; letter-spacing: 0.05em; }
     .nav-links { display: flex; gap: 36px; font-size: 14px; color: var(--text-muted); }
     .nav-links a:hover { color: var(--accent); }
     .nav-cta { font-family: var(--mono); font-size: 12px; padding: 8px 16px; border: 1px solid var(--border-bright); border-radius: var(--radius); transition: all 0.2s; }
@@ -132,16 +134,28 @@ html
     .products-meta { font-family: var(--mono); font-size: 12px; color: var(--text-dim); text-align: right; line-height: 1.7; }
     .products-meta a { color: var(--accent); }
     .product-list { display: flex; flex-direction: column; }
-    .product { display: grid; grid-template-columns: 90px 1fr auto; gap: 40px; padding: 48px 0; border-top: 1px solid var(--border); align-items: start; transition: padding-left 0.4s ease; }
+    .product { display: grid; grid-template-columns: 100px 1fr auto; gap: 40px; padding: 48px 0; border-top: 1px solid var(--border); align-items: start; transition: padding-left 0.4s ease; }
     .product:hover { padding-left: 12px; }
     .product:last-child { border-bottom: 1px solid var(--border); }
     @media (max-width: 860px) { .product { grid-template-columns: 1fr; gap: 20px; padding: 36px 0; } .product:hover { padding-left: 0; } }
-    .product-icon { width: 64px; height: 64px; border-radius: 8px; background: linear-gradient(135deg, var(--accent-dim), var(--accent)); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 30px; color: var(--bg); position: relative; }
-    .product-icon[data-variant="2"] { background: linear-gradient(135deg, #e07b5c, #f0b58a); }
-    .product-icon[data-variant="3"] { background: linear-gradient(135deg, #8a6ee0, #b598f0); }
-    .product-icon[data-variant="4"] { background: linear-gradient(135deg, #5c8ce0, #8ab8f0); }
-    .product-icon[data-variant="5"] { background: linear-gradient(135deg, #e0c45c, #f0db8a); }
-    .product-icon[data-variant="6"] { background: linear-gradient(135deg, #5ce0c4, #8ff0d8); }
+    .product-icon {
+      width: 72px; height: 72px;
+      border-radius: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; flex-shrink: 0;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .product:hover .product-icon {
+      border-color: var(--accent);
+      transform: rotate(-2deg) scale(1.03);
+    }
+    .product-icon img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+    }
     .product-body { min-width: 0; }
     .product-tagline { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
     .product h3 { font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 14px; }
@@ -226,9 +240,10 @@ html
 
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/" class="brand">
-        <span class="brand-mark"></span>
-        Cipher · Built by Sajid
+      <a href="/" class="brand cipher-logo">
+        <span class="word">Cipher</span>
+        <span class="tm">™</span>
+        <span class="product-name">Built by Sajid</span>
       </a>
       <div class="nav-links">
         <a href="#about">About</a>
@@ -319,7 +334,7 @@ html
       <div class="product-list">
 
         <article class="product">
-          <div class="product-icon" data-variant="1">A</div>
+          <div class="product-icon"><img src="https://aboutsajid.github.io/assets/icons/cipher-ai-icon-128.png" alt="Cipher Ai icon" loading="lazy"></div>
           <div class="product-body">
             <div class="product-tagline">— Cipher Ai · Daily AI workspace</div>
             <h3>Free AI, <em>no fees.</em></h3>
@@ -338,7 +353,7 @@ html
         </article>
 
         <article class="product">
-          <div class="product-icon" data-variant="2">L</div>
+          <div class="product-icon"><img src="https://aboutsajid.github.io/assets/icons/cipher-lens-icon-128.png" alt="Cipher Lens icon" loading="lazy"></div>
           <div class="product-body">
             <div class="product-tagline">— Cipher Lens · Transcript intelligence</div>
             <h3>Turn any video <em>into a brief.</em></h3>
@@ -357,7 +372,7 @@ html
         </article>
 
         <article class="product">
-          <div class="product-icon" data-variant="3">V</div>
+          <div class="product-icon"><img src="https://aboutsajid.github.io/assets/icons/ciphervault-icon-128.png" alt="Cipher Vault icon" loading="lazy"></div>
           <div class="product-body">
             <div class="product-tagline">— Cipher Vault · Password manager</div>
             <h3>The password manager <em>you actually own.</em></h3>
@@ -376,7 +391,7 @@ html
         </article>
 
         <article class="product">
-          <div class="product-icon" data-variant="4">R</div>
+          <div class="product-icon"><img src="https://aboutsajid.github.io/assets/icons/cipher-screen-recorder-icon-128.png" alt="Cipher Screen Recorder icon" loading="lazy"></div>
           <div class="product-body">
             <div class="product-tagline">— Cipher Screen Recorder · Capture</div>
             <h3>Record, trim, <em>and you're done.</em></h3>
@@ -395,7 +410,7 @@ html
         </article>
 
         <article class="product">
-          <div class="product-icon" data-variant="5">C</div>
+          <div class="product-icon"><img src="https://aboutsajid.github.io/assets/icons/cipher-compress-icon-128.png" alt="Cipher Compress icon" loading="lazy"></div>
           <div class="product-body">
             <div class="product-tagline">— Cipher Compress · Video compression</div>
             <h3>Smaller files, <em>same eyes.</em></h3>
@@ -414,7 +429,7 @@ html
         </article>
 
         <article class="product">
-          <div class="product-icon" data-variant="6">D</div>
+          <div class="product-icon"><img src="https://aboutsajid.github.io/assets/icons/cipher-yt-icon-128.png" alt="Cipher Video Downloader icon" loading="lazy"></div>
           <div class="product-body">
             <div class="product-tagline">— Cipher Video Downloader · v2.0 redesigned</div>
             <h3>One-click save, <em>built for the browser.</em></h3>
