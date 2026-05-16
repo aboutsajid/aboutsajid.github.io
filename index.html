@@ -1,804 +1,615 @@
+
+html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Privacy-first Windows desktop tools by Sajid Mehmood under the Cipher brand."/>
-<meta property="og:title" content="Sajid Mehmood | Cipher Desktop Products"/>
-<meta property="og:description" content="Practical, local-first Windows tools with direct GitHub releases."/>
-<meta property="og:url" content="https://aboutsajid.github.io/"/>
-<meta name="theme-color" content="#050e0b"/>
-<title>Sajid Mehmood | Cipher Desktop Products</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-:root{
-  --bg:#030b07;
-  --bg2:#050f09;
-  --bg3:#071409;
-  --surface:#091a0f;
-  --surface2:#0c2015;
-  --border:#0f3a20;
-  --border2:#1a6038;
-  --accent:#0F9E83;
-  --accent2:#0c8a72;
-  --accent3:#12c4a2;
-  --accent-dim:#0a6b5a;
-  --text:#c8ede5;
-  --text2:#7ab8a8;
-  --text3:#456b60;
-  --glow:rgba(15,158,131,0.15);
-  --glow2:rgba(15,158,131,0.35);
-  --font-mono:'Share Tech Mono',monospace;
-  --font-display:'Orbitron',monospace;
-  --font-body:'Rajdhani',sans-serif;
-}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden;cursor:crosshair}
-::selection{background:var(--accent);color:#000}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--accent-dim);border-radius:2px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sajid Mehmood — Cipher · Windows software, built to be kept</title>
+  <meta name="description" content="I design and ship local-first Windows desktop tools under the Cipher brand. Six shipped products: AI, transcripts, password vault, screen recording, compression, and video downloads. Free, open source, zero telemetry.">
+  <meta name="author" content="Sajid Mehmood">
+  <meta name="theme-color" content="#0a1614">
 
-/* SCANLINES */
-body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px);animation:scanshift 8s linear infinite}
-@keyframes scanshift{from{background-position:0 0}to{background-position:0 100px}}
+  <meta property="og:title" content="Sajid Mehmood — Cipher Desktop Products">
+  <meta property="og:description" content="Local-first Windows tools. Six shipped products. Free, open source, zero telemetry.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aboutsajid.github.io/">
+  <meta property="og:image" content="https://aboutsajid.github.io/assets/branding/cipher-og-1200x630.png">
+  <meta name="twitter:card" content="summary_large_image">
 
-/* GRID BG */
-.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(15,158,131,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(15,158,131,0.04) 1px,transparent 1px);background-size:40px 40px;animation:gridfade 4s ease-in-out infinite alternate}
-@keyframes gridfade{from{opacity:0.6}to{opacity:1}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sajid Mehmood",
+    "url": "https://aboutsajid.github.io",
+    "jobTitle": "Desktop software builder",
+    "sameAs": ["https://github.com/aboutsajid"]
+  }
+  </script>
 
-#matrix-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.07}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:64px;background:rgba(3,11,7,0.9);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
-.nav-logo{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--accent);letter-spacing:0.15em;text-decoration:none;display:flex;align-items:center;gap:0.6rem}
-.nav-logo span{color:var(--text2);font-weight:400;font-size:0.72rem;font-family:var(--font-mono)}
-.nav-links{display:flex;align-items:center;gap:0.1rem;list-style:none}
-.nav-links a{color:var(--text2);text-decoration:none;font-family:var(--font-mono);font-size:0.75rem;padding:0.4rem 0.7rem;letter-spacing:0.08em;border:1px solid transparent;transition:all 0.2s;position:relative}
-.nav-links a:hover{color:var(--accent);border-color:var(--border2);background:var(--surface)}
-.nav-links a.ext{color:var(--accent);border:1px solid var(--accent-dim)}
-.nav-links a.ext:hover{background:var(--accent);color:#000}
-.nav-toggle{display:none;background:none;border:1px solid var(--border2);color:var(--accent);padding:6px 10px;cursor:pointer;font-family:var(--font-mono);font-size:0.78rem}
+  <style>
+    :root {
+      --bg: #0a1614;
+      --bg-elevated: #0f2024;
+      --bg-card: #122729;
+      --border: #1c3033;
+      --border-bright: #2a4548;
+      --text: #f0ede4;
+      --text-muted: #a8b0ad;
+      --text-dim: #6a7775;
+      --accent: #5ce0b8;
+      --accent-dim: #0f9e83;
+      --accent-glow: rgba(92, 224, 184, 0.15);
+      --warn: #e07b5c;
+      --serif: 'Fraunces', Georgia, serif;
+      --sans: 'Manrope', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 4px;
+      --max-w: 1180px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--sans); font-size: 16px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none;
+      opacity: 0.025; mix-blend-mode: overlay; z-index: 999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
 
-/* HERO */
-#hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:120px 5rem 80px;overflow:hidden}
-.hero-eyebrow{font-family:var(--font-mono);font-size:0.78rem;color:var(--accent);letter-spacing:0.2em;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;animation:fadein 0.8s ease both}
-.hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--accent)}
-.blink{animation:blink 1s step-end infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.hero-title{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,4.5rem);font-weight:900;line-height:1.05;margin-bottom:1.5rem;animation:fadein 0.8s 0.15s ease both}
-.hero-title .line1{display:block;color:var(--text)}
-.hero-title .line2{display:block;color:var(--accent);text-shadow:0 0 40px rgba(15,158,131,0.5);position:relative}
-.hero-title .line2::after{content:'';position:absolute;bottom:-4px;left:0;width:100%;height:1px;background:linear-gradient(90deg,var(--accent),transparent)}
-.hero-sub{font-family:var(--font-mono);font-size:0.88rem;color:var(--text2);max-width:580px;line-height:1.9;margin-bottom:2.5rem;border-left:2px solid var(--accent-dim);padding-left:1rem;animation:fadein 0.8s 0.3s ease both}
-.hero-stats{display:flex;gap:2.5rem;margin-bottom:3rem;animation:fadein 0.8s 0.45s ease both}
-.stat-num{font-family:var(--font-display);font-size:2rem;font-weight:900;color:var(--accent);display:block;text-shadow:0 0 20px var(--glow2)}
-.stat-label{font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:0.15em}
-.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;animation:fadein 0.8s 0.6s ease both}
-.btn{font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.1em;padding:0.75rem 1.8rem;text-decoration:none;border:1px solid var(--accent);color:var(--accent);background:transparent;cursor:pointer;position:relative;overflow:hidden;transition:all 0.25s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);display:inline-block}
-.btn::before{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-101%);transition:transform 0.25s}
-.btn:hover::before{transform:translateX(0)}
-.btn:hover{color:#000}
-.btn-ghost{border-color:var(--border2);color:var(--text2)}
-.btn-ghost:hover{border-color:var(--accent2)}
-.hero-deco{position:absolute;top:90px;right:5rem;width:300px;height:300px;opacity:0.12;pointer-events:none;animation:spin 40s linear infinite}
-@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    /* Nav */
+    .nav { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(10, 22, 20, 0.78); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; max-width: var(--max-w); margin: 0 auto; }
+    .brand { font-family: var(--serif); font-weight: 500; font-size: 18px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px; }
+    .brand-mark { width: 24px; height: 24px; border: 1.5px solid var(--accent); border-radius: 50%; position: relative; }
+    .brand-mark::after { content: ''; position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; transform: translate(-50%, -50%); }
+    .nav-links { display: flex; gap: 36px; font-size: 14px; color: var(--text-muted); }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { font-family: var(--mono); font-size: 12px; padding: 8px 16px; border: 1px solid var(--border-bright); border-radius: var(--radius); transition: all 0.2s; }
+    .nav-cta:hover { border-color: var(--accent); color: var(--accent); }
+    @media (max-width: 720px) { .nav-links { display: none; } }
 
-/* SECTIONS */
-section{position:relative;z-index:1;padding:100px 5rem}
-.section-label{font-family:var(--font-mono);font-size:0.72rem;color:var(--accent);letter-spacing:0.25em;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.6rem}
-.section-label::before{content:'//';color:var(--accent-dim)}
-.section-title{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.4rem);font-weight:700;color:var(--text);margin-bottom:1rem}
-.section-sub{font-family:var(--font-mono);font-size:0.83rem;color:var(--text2);max-width:520px;line-height:1.8}
-.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
+    /* Hero */
+    .hero { padding: 140px 0 100px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -200px; right: -300px; width: 700px; height: 700px; background: radial-gradient(circle, var(--accent-glow), transparent 70%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: -100px; left: -200px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(15, 158, 131, 0.08), transparent 70%); pointer-events: none; }
+    .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 32px; display: inline-flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+    .h1 { font-family: var(--serif); font-weight: 350; font-size: clamp(44px, 7.5vw, 92px); line-height: 0.98; letter-spacing: -0.03em; margin-bottom: 36px; max-width: 900px; }
+    .h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
+    .hero-lede { font-size: 19px; line-height: 1.6; color: var(--text-muted); max-width: 620px; margin-bottom: 48px; }
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 64px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: var(--radius); font-family: var(--sans); font-weight: 500; font-size: 14px; letter-spacing: 0.01em; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent; }
+    .btn-primary { background: var(--accent); color: var(--bg); }
+    .btn-primary:hover { background: #6eebc4; transform: translateY(-1px); box-shadow: 0 8px 24px var(--accent-glow); }
+    .btn-ghost { border-color: var(--border-bright); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-arrow { font-size: 16px; line-height: 1; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; max-width: 720px; }
+    @media (max-width: 600px) { .hero-stats { grid-template-columns: 1fr; } }
+    .stat { padding: 28px 24px; background: var(--bg); }
+    .stat-num { font-family: var(--serif); font-weight: 350; font-size: 44px; line-height: 1; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .stat-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
 
-/* ABOUT */
-#about{background:var(--bg2)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:4rem;align-items:start}
-.about-text p{font-size:1rem;color:var(--text2);line-height:1.9;margin-bottom:1rem;font-weight:500}
-.terminal-block{background:var(--surface);border:1px solid var(--border);font-family:var(--font-mono);font-size:0.78rem;color:var(--text2);padding:1.5rem;position:relative}
-.terminal-block::before{content:'SYSTEM.INFO';position:absolute;top:-1px;left:1rem;background:var(--bg2);padding:0 0.5rem;font-size:0.62rem;color:var(--accent);letter-spacing:0.15em}
-.terminal-block .line{margin:0.35rem 0;display:flex;gap:0.8rem}
-.terminal-block .key{color:var(--accent);min-width:100px}
-.terminal-block .val{color:var(--text)}
-.t-cursor{display:inline-block;width:8px;height:13px;background:var(--accent);animation:blink 1s step-end infinite;vertical-align:middle}
+    /* Sections */
+    section { padding: 110px 0; position: relative; }
+    @media (max-width: 720px) { section { padding: 70px 0; } }
+    .section-header { margin-bottom: 64px; max-width: 720px; }
+    .section-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; }
+    .h2 { font-family: var(--serif); font-weight: 350; font-size: clamp(34px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 20px; }
+    .h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+    .section-lede { font-size: 17px; color: var(--text-muted); line-height: 1.6; }
 
-/* SKILLS */
-#skills{background:var(--bg)}
-.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:4rem}
-.skill-card{background:var(--surface);border:1px solid var(--border);padding:1.75rem;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s}
-.skill-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--glow),transparent);opacity:0;transition:opacity 0.3s}
-.skill-card:hover{border-color:var(--border2);transform:translateY(-3px)}
-.skill-card:hover::before{opacity:1}
-.skill-name{font-family:var(--font-display);font-size:0.82rem;font-weight:700;color:var(--text);letter-spacing:0.1em;margin-bottom:1rem}
-.skill-bar-wrap{height:3px;background:var(--bg3);position:relative;overflow:hidden;margin-bottom:0.4rem}
-.skill-bar{height:100%;background:linear-gradient(90deg,var(--accent-dim),var(--accent3));position:relative;width:0%;transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
-.skill-bar::after{content:'';position:absolute;right:0;top:0;height:100%;width:6px;background:var(--accent3);box-shadow:0 0 8px var(--accent3)}
-.skill-pct{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-align:right}
-.tech-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:3rem}
-.tag{font-family:var(--font-mono);font-size:0.68rem;color:var(--accent2);border:1px solid var(--border2);padding:0.3rem 0.75rem;letter-spacing:0.06em;transition:all 0.2s;cursor:default}
-.tag:hover{background:var(--accent);color:#000;border-color:var(--accent)}
-.quality-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem}
-.quality-card{background:var(--surface);border:1px solid var(--border);padding:1.25rem;text-align:center}
-.quality-pct{font-family:var(--font-display);font-size:1.75rem;font-weight:900;color:var(--accent);display:block;text-shadow:0 0 15px var(--glow2)}
-.quality-label{font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:0.12em;margin-top:0.3rem}
-.quality-sub{font-size:0.72rem;color:var(--text3);margin-top:0.4rem;font-weight:500}
+    /* Philosophy */
+    .philosophy { background: linear-gradient(180deg, var(--bg) 0%, #08110f 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .philosophy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    @media (max-width: 860px) { .philosophy-grid { grid-template-columns: 1fr; gap: 48px; } }
+    .phil-body p { font-size: 17.5px; line-height: 1.7; color: var(--text-muted); margin-bottom: 24px; }
+    .phil-body p:first-child { font-family: var(--serif); font-weight: 350; font-size: 26px; line-height: 1.35; color: var(--text); letter-spacing: -0.01em; }
+    .phil-body p:first-child::first-letter { font-style: italic; color: var(--accent); }
+    .principles { display: flex; flex-direction: column; gap: 24px; }
+    .principle { padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; transition: border-color 0.3s; }
+    .principle:hover { border-color: var(--border-bright); }
+    .principle-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .principle h4 { font-family: var(--serif); font-weight: 400; font-size: 20px; letter-spacing: -0.01em; margin-bottom: 8px; line-height: 1.25; }
+    .principle p { font-size: 14.5px; color: var(--text-muted); line-height: 1.55; }
 
-/* FEATURED */
-#featured{background:var(--bg2)}
-.featured-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:4rem;margin-top:4rem;align-items:center}
-.featured-badge{display:inline-block;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);border:1px solid var(--accent-dim);padding:0.25rem 0.75rem;letter-spacing:0.15em;margin-bottom:1rem}
-.featured-name{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:900;color:var(--text);margin-bottom:0.5rem}
-.featured-name .c{color:var(--accent)}
-.featured-desc{font-family:var(--font-mono);font-size:0.83rem;color:var(--text2);line-height:1.9;margin-bottom:2rem}
-.feature-list{list-style:none;margin-bottom:2rem}
-.feature-list li{font-family:var(--font-mono);font-size:0.8rem;color:var(--text2);padding:0.5rem 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:0.75rem}
-.feature-list li::before{content:'→';color:var(--accent);flex-shrink:0}
-.featured-img-wrap{position:relative;aspect-ratio:4/3;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.featured-img-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--glow),transparent 60%)}
-.live-feed{position:absolute;bottom:1rem;left:1rem;right:1rem;background:rgba(3,11,7,0.9);border:1px solid var(--border);font-family:var(--font-mono);font-size:0.7rem;color:var(--text2);padding:0.75rem 1rem}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent3);display:inline-block;margin-right:0.5rem;animation:pulse 1.5s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 var(--glow2)}50%{opacity:0.7;box-shadow:0 0 0 6px transparent}}
+    /* Products */
+    .products-header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 64px; gap: 40px; flex-wrap: wrap; }
+    .products-header .section-header { margin: 0; flex: 1; min-width: 280px; }
+    .products-meta { font-family: var(--mono); font-size: 12px; color: var(--text-dim); text-align: right; line-height: 1.7; }
+    .products-meta a { color: var(--accent); }
+    .product-list { display: flex; flex-direction: column; }
+    .product { display: grid; grid-template-columns: 90px 1fr auto; gap: 40px; padding: 48px 0; border-top: 1px solid var(--border); align-items: start; transition: padding-left 0.4s ease; }
+    .product:hover { padding-left: 12px; }
+    .product:last-child { border-bottom: 1px solid var(--border); }
+    @media (max-width: 860px) { .product { grid-template-columns: 1fr; gap: 20px; padding: 36px 0; } .product:hover { padding-left: 0; } }
+    .product-icon { width: 64px; height: 64px; border-radius: 8px; background: linear-gradient(135deg, var(--accent-dim), var(--accent)); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 30px; color: var(--bg); position: relative; }
+    .product-icon[data-variant="2"] { background: linear-gradient(135deg, #e07b5c, #f0b58a); }
+    .product-icon[data-variant="3"] { background: linear-gradient(135deg, #8a6ee0, #b598f0); }
+    .product-icon[data-variant="4"] { background: linear-gradient(135deg, #5c8ce0, #8ab8f0); }
+    .product-icon[data-variant="5"] { background: linear-gradient(135deg, #e0c45c, #f0db8a); }
+    .product-icon[data-variant="6"] { background: linear-gradient(135deg, #5ce0c4, #8ff0d8); }
+    .product-body { min-width: 0; }
+    .product-tagline { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; }
+    .product h3 { font-family: var(--serif); font-weight: 400; font-size: 30px; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 14px; }
+    .product h3 em { font-style: italic; color: var(--accent); }
+    .product-desc { font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; max-width: 620px; }
+    .product-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { font-family: var(--mono); font-size: 11px; padding: 4px 10px; border: 1px solid var(--border-bright); border-radius: 100px; color: var(--text-muted); }
+    .product-cta { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; min-width: 180px; }
+    @media (max-width: 860px) { .product-cta { align-items: flex-start; } }
+    .product-version { font-family: var(--mono); font-size: 11px; color: var(--accent); margin-bottom: 4px; }
+    .product-cta .btn { font-size: 13px; padding: 11px 18px; width: max-content; }
+    .product-cta .release-link { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+    .product-cta .release-link:hover { color: var(--accent); }
 
-/* PROJECTS */
-#projects{background:var(--bg)}
-.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
-.project-card{background:var(--surface);border:1px solid var(--border);padding:1.75rem;position:relative;overflow:hidden;transition:all 0.3s;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
-.project-card::after{content:'';position:absolute;bottom:0;right:0;width:0;height:0;border-left:14px solid var(--border2);border-top:14px solid transparent}
-.project-card:hover{border-color:var(--accent-dim);transform:translateY(-4px)}
-.project-card:hover::after{border-left-color:var(--accent)}
-.project-icon{width:44px;height:44px;margin-bottom:1.25rem;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:0.62rem;color:var(--accent);letter-spacing:0.04em}
-.project-release{font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);margin-bottom:0.5rem;letter-spacing:0.1em}
-.project-name{font-family:var(--font-display);font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.75rem}
-.project-name .c{color:var(--accent)}
-.project-desc{font-size:0.83rem;color:var(--text2);line-height:1.7;margin-bottom:0.75rem;font-weight:500}
-.project-usecase{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-dim);border-left:2px solid var(--accent-dim);padding-left:0.6rem;margin-bottom:1.25rem}
-.project-bullets{list-style:none;margin-bottom:1.5rem}
-.project-bullets li{font-family:var(--font-mono);font-size:0.7rem;color:var(--text3);padding:0.3rem 0;display:flex;gap:0.5rem;align-items:flex-start}
-.project-bullets li::before{content:'_';color:var(--accent-dim);flex-shrink:0}
-.project-tech{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem}
-.tech-pill{font-family:var(--font-mono);font-size:0.6rem;color:var(--text3);border:1px solid var(--border);padding:0.15rem 0.5rem;letter-spacing:0.06em}
-.project-links{display:flex;gap:0.75rem;flex-wrap:wrap}
-.project-link{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);border:1px solid var(--accent-dim);padding:0.4rem 0.9rem;text-decoration:none;transition:all 0.2s;letter-spacing:0.06em}
-.project-link:hover{background:var(--accent);color:#000}
-.project-link.ghost{color:var(--text3);border-color:var(--border)}
-.project-link.ghost:hover{color:var(--accent);border-color:var(--accent-dim);background:transparent}
+    /* Stack */
+    .stack { background: var(--bg); }
+    .stack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    @media (max-width: 860px) { .stack-grid { grid-template-columns: 1fr; gap: 48px; } }
+    .stack-col h3 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .stack-list { display: flex; flex-direction: column; gap: 18px; }
+    .stack-item { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+    .stack-item-name { font-family: var(--serif); font-size: 19px; font-weight: 400; letter-spacing: -0.01em; }
+    .stack-item-note { font-family: var(--mono); font-size: 12px; color: var(--text-dim); text-align: right; }
+    .stack-divider { flex: 1; border-bottom: 1px dotted var(--border-bright); margin: 0 8px; transform: translateY(-4px); }
 
-/* PROCESS */
-#process{background:var(--bg2)}
-.process-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:4rem}
-.process-steps{display:flex;flex-direction:column;gap:0;position:relative}
-.process-steps::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:1px;background:linear-gradient(180deg,var(--accent-dim),var(--border))}
-.step{display:flex;gap:1.5rem;padding:1.5rem 0;position:relative}
-.step-num{width:36px;height:36px;flex-shrink:0;background:var(--surface);border:1px solid var(--border);font-family:var(--font-display);font-size:0.72rem;color:var(--accent);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:all 0.3s}
-.step:hover .step-num{background:var(--accent);color:#000;border-color:var(--accent)}
-.step-title{font-family:var(--font-display);font-size:0.85rem;font-weight:700;color:var(--text);margin-bottom:0.35rem;letter-spacing:0.05em}
-.step-desc{font-family:var(--font-mono);font-size:0.76rem;color:var(--text3);line-height:1.7}
-.setup-blocks{display:flex;flex-direction:column;gap:1.5rem}
-.setup-block{background:var(--surface);border:1px solid var(--border);padding:1.25rem 1.5rem;position:relative}
-.setup-block::before{content:attr(data-name);position:absolute;top:-1px;left:1rem;background:var(--bg2);padding:0 0.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);letter-spacing:0.12em}
-.setup-steps{list-style:none;margin-top:0.5rem}
-.setup-steps li{font-family:var(--font-mono);font-size:0.76rem;color:var(--text2);padding:0.4rem 0;display:flex;gap:0.75rem;align-items:flex-start;border-bottom:1px solid var(--border)}
-.setup-steps li:last-child{border-bottom:none}
-.step-idx{color:var(--accent-dim);min-width:1.2rem;font-size:0.68rem}
+    /* Commitments */
+    .commitments { background: linear-gradient(180deg, #08110f 0%, var(--bg) 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .commit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+    @media (max-width: 720px) { .commit-grid { grid-template-columns: 1fr; } }
+    .commit { padding: 36px 32px; background: var(--bg); }
+    .commit-num { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--accent); margin-bottom: 20px; }
+    .commit h4 { font-family: var(--serif); font-weight: 400; font-size: 22px; letter-spacing: -0.01em; margin-bottom: 12px; line-height: 1.2; }
+    .commit h4 em { font-style: italic; color: var(--accent); }
+    .commit p { font-size: 14.5px; color: var(--text-muted); line-height: 1.6; }
 
-/* CONTACT */
-#contact{background:var(--bg)}
-.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;margin-top:4rem}
-.contact-info h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:1.5rem;line-height:1.4}
-.contact-links{list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem}
-.contact-links li a{font-family:var(--font-mono);font-size:0.8rem;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);transition:all 0.2s}
-.contact-links li a:hover{border-color:var(--accent-dim);color:var(--accent);background:var(--bg3)}
-.contact-links li:nth-child(1) a::before{content:'[mail]';color:var(--accent)}
-.contact-links li:nth-child(2) a::before{content:'[git]';color:var(--accent)}
-.contact-links li:nth-child(3) a::before{content:'[web]';color:var(--accent)}
-.contact-form{background:var(--surface);border:1px solid var(--border);padding:2rem;position:relative}
-.contact-form::before{content:'SEND_MESSAGE.EXE';position:absolute;top:-1px;left:1rem;background:var(--bg);padding:0 0.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);letter-spacing:0.15em}
-.form-row{margin-bottom:1.25rem}
-.form-row label{display:block;font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-dim);letter-spacing:0.12em;margin-bottom:0.4rem}
-.form-row input,.form-row select,.form-row textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:0.8rem;padding:0.65rem 0.85rem;outline:none;transition:border-color 0.2s;appearance:none}
-.form-row select option{background:var(--bg);color:var(--text)}
-.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--accent)}
-.form-row textarea{resize:vertical;min-height:120px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.form-submit{width:100%;font-family:var(--font-mono);font-size:0.78rem;letter-spacing:0.12em;padding:0.85rem;background:transparent;border:1px solid var(--accent);color:var(--accent);cursor:pointer;transition:all 0.25s;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)}
-.form-submit:hover{background:var(--accent);color:#000}
+    /* Process */
+    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    @media (max-width: 860px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .process-grid { grid-template-columns: 1fr; } }
+    .step { position: relative; padding-top: 36px; }
+    .step::before { content: ''; position: absolute; top: 0; left: 0; width: 32px; height: 1px; background: var(--accent); }
+    .step-num { font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; margin-bottom: 14px; display: block; }
+    .step h4 { font-family: var(--serif); font-weight: 400; font-size: 22px; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .step p { font-size: 14.5px; color: var(--text-muted); line-height: 1.55; }
 
-/* FOOTER */
-footer{position:relative;z-index:1;background:var(--bg2);border-top:1px solid var(--border);padding:2rem 5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.footer-left{font-family:var(--font-mono);font-size:0.72rem;color:var(--text3)}
-.footer-left a{color:var(--accent);text-decoration:none}
+    /* Contact */
+    .contact { background: var(--bg); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; gap: 48px; } }
+    .contact-body p { font-family: var(--serif); font-weight: 350; font-size: 24px; line-height: 1.4; color: var(--text); margin-bottom: 32px; letter-spacing: -0.01em; }
+    .contact-channels { display: flex; flex-direction: column; gap: 14px; }
+    .channel { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); font-family: var(--mono); font-size: 13px; transition: border-color 0.2s; }
+    .channel:hover { border-bottom-color: var(--accent); }
+    .channel-label { color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; font-size: 11px; }
+    .channel-value { color: var(--accent); }
+    .form { padding: 36px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; }
+    .form-row { margin-bottom: 20px; }
+    .form-row label { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
+    .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: var(--sans); font-size: 14px; transition: border-color 0.2s; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: var(--accent); }
+    .form-row textarea { resize: vertical; min-height: 110px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
 
-/* ANIMATIONS */
-@keyframes fadein{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+    /* Footer */
+    footer { padding: 60px 0 40px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-dim); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+    .footer-links a:hover { color: var(--accent); }
 
-/* GLITCH */
-.glitch{position:relative}
-.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%}
-.glitch::before{color:rgba(0,255,200,0.6);clip-path:polygon(0 30%,100% 30%,100% 50%,0 50%);animation:glitch1 3.5s infinite;left:2px}
-.glitch::after{color:rgba(255,0,100,0.35);clip-path:polygon(0 62%,100% 62%,100% 78%,0 78%);animation:glitch2 3.5s infinite;left:-2px}
-@keyframes glitch1{0%,90%,100%{transform:translateX(0)}92%{transform:translateX(-4px)}94%{transform:translateX(4px)}96%{transform:translateX(0)}}
-@keyframes glitch2{0%,88%,100%{transform:translateX(0)}90%{transform:translateX(4px)}93%{transform:translateX(-2px)}95%{transform:translateX(0)}}
-
-/* RESPONSIVE */
-@media(max-width:1100px){.projects-grid{grid-template-columns:1fr 1fr}.quality-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:800px){
-  nav{padding:0 1.5rem}
-  .nav-links{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(3,11,7,0.98);border-bottom:1px solid var(--border);padding:1rem}
-  .nav-links.open{display:flex}
-  .nav-toggle{display:block}
-  #hero{padding:120px 1.5rem 60px}
-  section{padding:70px 1.5rem}
-  .hero-deco{display:none}
-  .about-grid,.featured-wrap,.contact-grid,.process-wrap{grid-template-columns:1fr}
-  .projects-grid{grid-template-columns:1fr}
-  .skills-grid{grid-template-columns:1fr}
-  .quality-grid{grid-template-columns:1fr 1fr}
-  .form-grid{grid-template-columns:1fr}
-  footer{padding:1.5rem;justify-content:center;text-align:center}
-  .hero-stats{gap:1.5rem}
-}
-</style>
+    /* Animation */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .hero > .container > * { animation: fadeUp 0.8s ease-out both; }
+    .hero .eyebrow { animation-delay: 0.05s; }
+    .hero .h1 { animation-delay: 0.15s; }
+    .hero .hero-lede { animation-delay: 0.3s; }
+    .hero .cta-row { animation-delay: 0.4s; }
+    .hero .hero-stats { animation-delay: 0.5s; }
+  </style>
 </head>
 <body>
 
-<div class="grid-bg"></div>
-<canvas id="matrix-canvas"></canvas>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">
-    CIPHER™
-    <span>// built by sajid</span>
-  </a>
-  <button class="nav-toggle" id="navToggle">[ MENU ]</button>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#about">ABOUT</a></li>
-    <li><a href="#skills">SKILLS</a></li>
-    <li><a href="#projects">PROJECTS</a></li>
-    <li><a href="https://aboutsajid.github.io/cipher-lens/" class="ext">CIPHER LENS ↗</a></li>
-    <li><a href="#process">PROCESS</a></li>
-    <li><a href="#contact">CONTACT</a></li>
-    <li><a href="https://github.com/aboutsajid" class="ext">GITHUB ↗</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-deco" aria-hidden="true">
-    <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="150,10 280,80 280,220 150,290 20,220 20,80" stroke="#0F9E83" stroke-width="1.5" fill="none" stroke-dasharray="6 3"/>
-      <polygon points="150,40 258,105 258,195 150,260 42,195 42,105" stroke="#0F9E83" stroke-width="0.5" fill="none"/>
-      <polygon points="150,70 236,115 236,185 150,230 64,185 64,115" stroke="#0F9E83" stroke-width="0.5" fill="none" stroke-dasharray="3 6"/>
-      <circle cx="150" cy="150" r="4" fill="#0F9E83"/>
-      <circle cx="150" cy="10" r="3" fill="#0F9E83"/>
-      <circle cx="280" cy="80" r="3" fill="#0F9E83"/>
-      <circle cx="280" cy="220" r="3" fill="#0F9E83"/>
-      <circle cx="150" cy="290" r="3" fill="#0F9E83"/>
-      <circle cx="20" cy="220" r="3" fill="#0F9E83"/>
-      <circle cx="20" cy="80" r="3" fill="#0F9E83"/>
-    </svg>
-  </div>
-
-  <div class="hero-eyebrow">
-    <span class="blink">▋</span>
-    <span id="typed-text"></span>
-  </div>
-
-  <h1 class="hero-title">
-    <span class="line1">I BUILD WINDOWS TOOLS</span>
-    <span class="line2 glitch" data-text="PEOPLE ACTUALLY KEEP.">PEOPLE ACTUALLY KEEP.</span>
-  </h1>
-
-  <p class="hero-sub">
-    Sajid Mehmood — creator of the Cipher suite. Focused on practical desktop software with clear UX, local-first behavior, and direct GitHub delivery. Free AI. No fees. Zero telemetry.
-  </p>
-
-  <div class="hero-stats">
-    <div class="stat-item">
-      <span class="stat-num">6</span>
-      <span class="stat-label">LIVE PRODUCTS</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">100%</span>
-      <span class="stat-label">FREE ACCESS</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">0</span>
-      <span class="stat-label">TELEMETRY BIAS</span>
-    </div>
-  </div>
-
-  <div class="hero-cta">
-    <a href="#projects" class="btn">EXPLORE PROJECTS</a>
-    <a href="#contact" class="btn btn-ghost">START COLLABORATION</a>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label">ABOUT</div>
-  <h2 class="section-title">WHAT I BUILD</h2>
-  <div class="about-grid reveal">
-    <div class="about-text">
-      <p>Focused Windows products for AI workflows, security, media tasks, and creator productivity. Each product solves one clear job and stays easy to adopt.</p>
-      <p>Problem-first feature planning with practical scope. Local-first defaults and privacy-aware behavior. Fast installer-based releases from GitHub.</p>
-      <p>No signup walls, no forced subscriptions, and no unnecessary complexity. Download, install, and start working with minimal friction.</p>
-    </div>
-    <div class="terminal-block">
-      <div class="line"><span class="key">ENTITY</span><span class="val">Sajid Mehmood</span></div>
-      <div class="line"><span class="key">BRAND</span><span class="val">Cipher™</span></div>
-      <div class="line"><span class="key">FOCUS</span><span class="val">Windows Desktop Tools</span></div>
-      <div class="line"><span class="key">DELIVERY</span><span class="val">GitHub Releases</span></div>
-      <div class="line"><span class="key">POLICY</span><span class="val">Local-first / Zero telemetry</span></div>
-      <div class="line"><span class="key">PRICING</span><span class="val">Free forever</span></div>
-      <div class="line"><span class="key">PRODUCTS</span><span class="val">6 live / active</span></div>
-      <div class="line"><span class="key">STATUS</span><span class="val">ONLINE <span class="t-cursor"></span></span></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="section-label">SKILLS</div>
-  <h2 class="section-title">SKILLS &amp; EXECUTION</h2>
-  <p class="section-sub">Balanced across engineering, product UX, and release operations.</p>
-
-  <div class="skills-grid reveal">
-    <div class="skill-card">
-      <div class="skill-name">DESKTOP ENGINEERING</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-width="92%"></div></div>
-      <div class="skill-pct">92%</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-name">UX &amp; INTERACTION</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-width="88%"></div></div>
-      <div class="skill-pct">88%</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-name">RELEASE &amp; DELIVERY</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-width="90%"></div></div>
-      <div class="skill-pct">90%</div>
-    </div>
-    <div class="skill-card">
-      <div class="skill-name">AI INTEGRATION</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" data-width="86%"></div></div>
-      <div class="skill-pct">86%</div>
-    </div>
-  </div>
-
-  <div class="tech-tags reveal">
-    <span class="tag">Electron</span><span class="tag">TypeScript</span><span class="tag">Node.js</span>
-    <span class="tag">React</span><span class="tag">PySide6</span><span class="tag">Windows Packaging</span>
-    <span class="tag">GitHub Releases</span><span class="tag">yt-dlp</span><span class="tag">FFmpeg</span>
-    <span class="tag">OpenRouter</span><span class="tag">Ollama</span>
-  </div>
-
-  <div class="quality-grid reveal">
-    <div class="quality-card">
-      <span class="quality-pct">95%</span>
-      <div class="quality-label">RELIABILITY</div>
-      <div class="quality-sub">Stable behavior &amp; safe defaults</div>
-    </div>
-    <div class="quality-card">
-      <span class="quality-pct">89%</span>
-      <div class="quality-label">USABILITY</div>
-      <div class="quality-sub">Clear actions &amp; low friction</div>
-    </div>
-    <div class="quality-card">
-      <span class="quality-pct">91%</span>
-      <div class="quality-label">PERFORMANCE</div>
-      <div class="quality-sub">Responsive UI &amp; efficient rendering</div>
-    </div>
-    <div class="quality-card">
-      <span class="quality-pct">93%</span>
-      <div class="quality-label">SHIPPING</div>
-      <div class="quality-sub">Consistent release cadence</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- FEATURED -->
-<section id="featured">
-  <div class="section-label">FEATURED PRODUCT</div>
-  <div class="featured-wrap reveal">
-    <div>
-      <div class="featured-badge">// LATEST RELEASE</div>
-      <h2 class="featured-name"><span class="c">CIPHER™</span>LENS</h2>
-      <p class="featured-desc">Desktop transcript and channel intelligence workspace for creator briefs, research decks, export packs, and comparison workflows. Install locally from GitHub. Start with a URL, pasted transcript, or subtitle file.</p>
-      <ul class="feature-list">
-        <li>Fetch YouTube transcripts or import subtitle files directly into one desktop workflow</li>
-        <li>Generate summaries, chapter structures, repurposing packs, and client-ready exports</li>
-        <li>Run channel deep dives, side-by-side comparisons, and PDF-ready report flows</li>
-        <li>Supports OpenRouter &amp; Ollama — free AI, no fees</li>
-      </ul>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap">
-        <a href="https://github.com/aboutsajid/Cipher-Lens/releases/download/v1.0.0/Cipher-Lens-Setup-v1.0.0.exe" class="btn">DOWNLOAD v1.0.0</a>
-        <a href="https://aboutsajid.github.io/cipher-lens/" class="btn btn-ghost">PRODUCT PAGE ↗</a>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="brand">
+        <span class="brand-mark"></span>
+        Cipher · Built by Sajid
+      </a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#stack">Stack</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
       </div>
+      <a href="https://github.com/aboutsajid" class="nav-cta">↗ GitHub</a>
     </div>
-    <div class="featured-img-wrap">
-      <svg viewBox="0 0 200 200" fill="none" width="160" height="160">
-        <polygon points="100,8 186,55 186,145 100,192 14,145 14,55" stroke="#0F9E83" stroke-width="1.5" fill="rgba(15,158,131,0.05)"/>
-        <polygon points="100,24 170,65 170,135 100,176 30,135 30,65" stroke="#0F9E83" stroke-width="0.5" fill="none" opacity="0.4"/>
-        <polygon points="100,40 154,75 154,125 100,160 46,125 46,75" stroke="#0a6b5a" stroke-width="0.5" fill="none" stroke-dasharray="4 4"/>
-        <circle cx="100" cy="100" r="18" stroke="#0F9E83" stroke-width="1" fill="rgba(15,158,131,0.08)"/>
-        <text x="100" y="86" text-anchor="middle" fill="#0F9E83" font-family="Orbitron,monospace" font-size="9" font-weight="700" letter-spacing="1">CIPHER</text>
-        <text x="100" y="108" text-anchor="middle" fill="#12c4a2" font-family="Orbitron,monospace" font-size="13" font-weight="900">LENS</text>
-      </svg>
-      <div class="live-feed">
-        <span class="live-dot"></span>
-        LIVE — v1.0.0 · YouTube Transcript Analyzer · Windows Installer Available
-      </div>
-    </div>
-  </div>
-</section>
+  </nav>
 
-<div class="divider"></div>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-label">PROJECTS</div>
-  <h2 class="section-title">ALL PRODUCTS</h2>
-  <p class="section-sub">Release tags and download links from GitHub.</p>
-
-  <div class="projects-grid">
-
-    <div class="project-card reveal">
-      <div class="project-icon">AI</div>
-      <div class="project-release">// LATEST: v1.0.0</div>
-      <h3 class="project-name"><span class="c">CIPHER™</span>AI</h3>
-      <p class="project-desc">Free AI, No Fees. Supports OpenRouter &amp; Ollama with practical write/code/think workflows.</p>
-      <div class="project-usecase">USE CASE: Daily AI work from one local desktop app.</div>
-      <ul class="project-bullets">
-        <li>Provider mode switch with Ollama-only support</li>
-        <li>Router mode, compare mode, templates, attachments</li>
-        <li>Summary and title workflows for cloud/local paths</li>
-      </ul>
-      <div class="project-tech">
-        <span class="tech-pill">Electron</span><span class="tech-pill">TypeScript</span><span class="tech-pill">OpenRouter</span><span class="tech-pill">Ollama</span>
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow">Privacy-first desktop builder · Windows</div>
+      <h1 class="h1">Windows software, <em>built to be kept.</em></h1>
+      <p class="hero-lede">
+        I'm Sajid Mehmood. I design and ship local-first desktop tools under the Cipher brand — software that does one job well, respects your data, and installs in under a minute.
+      </p>
+      <div class="cta-row">
+        <a href="#products" class="btn btn-primary">Explore the six products <span class="btn-arrow">→</span></a>
+        <a href="#contact" class="btn btn-ghost">Start a collaboration</a>
       </div>
-      <div class="project-links">
-        <a href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" class="project-link">DOWNLOAD</a>
-        <a href="https://github.com/aboutsajid/Cipher-Ai/releases/tag/v1.0.0" class="project-link ghost">VIEW RELEASE ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card reveal" style="transition-delay:0.1s">
-      <div class="project-icon">LENS</div>
-      <div class="project-release">// LATEST: v1.0.0</div>
-      <h3 class="project-name"><span class="c">CIPHER™</span>LENS</h3>
-      <p class="project-desc">Desktop YouTube transcript analyzer for creator briefs, export packs, channel deep dives, and side-by-side comparisons.</p>
-      <div class="project-usecase">USE CASE: Turn transcript research into summaries and client-ready outputs.</div>
-      <ul class="project-bullets">
-        <li>Fetch public YouTube transcripts or import subtitle files</li>
-        <li>Generate briefs, chapters, planner outputs, repurposing packs</li>
-        <li>Run channel lab workflows for audits, comparisons, PDF exports</li>
-      </ul>
-      <div class="project-tech">
-        <span class="tech-pill">Electron</span><span class="tech-pill">React</span><span class="tech-pill">TypeScript</span><span class="tech-pill">Creator Tool</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/aboutsajid/Cipher-Lens/releases/download/v1.0.0/Cipher-Lens-Setup-v1.0.0.exe" class="project-link">DOWNLOAD</a>
-        <a href="https://github.com/aboutsajid/Cipher-Lens/releases/tag/v1.0.0" class="project-link ghost">VIEW RELEASE ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card reveal" style="transition-delay:0.2s">
-      <div class="project-icon">VAULT</div>
-      <div class="project-release">// LATEST: v1.0.0</div>
-      <h3 class="project-name"><span class="c">CIPHER™</span>VAULT</h3>
-      <p class="project-desc">Local-first password manager with strong encryption and practical account security tools.</p>
-      <div class="project-usecase">USE CASE: Secure credentials without forced cloud dependency.</div>
-      <ul class="project-bullets">
-        <li>Argon2id unlock and AES-256-GCM encrypted vault files</li>
-        <li>Password generation, audits, auto-lock, clipboard cleanup</li>
-        <li>Simple backup ownership model</li>
-      </ul>
-      <div class="project-tech">
-        <span class="tech-pill">Security</span><span class="tech-pill">Local-First</span><span class="tech-pill">Encryption</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/aboutsajid/Cipher-Vault/releases/download/v1.0.0/CipherVault-Setup.exe" class="project-link">DOWNLOAD</a>
-        <a href="https://github.com/aboutsajid/Cipher-Vault/releases/tag/v1.0.0" class="project-link ghost">VIEW RELEASE ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card reveal" style="transition-delay:0.3s">
-      <div class="project-icon">REC</div>
-      <div class="project-release">// LATEST: v1.0.0</div>
-      <h3 class="project-name"><span class="c">CIPHER™</span>SCREEN RECORDER</h3>
-      <p class="project-desc">Fast recording utility for tutorials, support demos, and content workflows.</p>
-      <div class="project-usecase">USE CASE: Record screen output with clean controls and local export.</div>
-      <ul class="project-bullets">
-        <li>Window/full-screen capture with mic/system audio</li>
-        <li>Quick record-to-export workflow</li>
-        <li>Offline-first output path</li>
-      </ul>
-      <div class="project-tech">
-        <span class="tech-pill">Productivity</span><span class="tech-pill">Media</span><span class="tech-pill">Creator Tool</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher.Screen.Recorder.exe" class="project-link">DOWNLOAD</a>
-        <a href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/tag/V1.0" class="project-link ghost">VIEW RELEASE ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card reveal" style="transition-delay:0.4s">
-      <div class="project-icon">COMP</div>
-      <div class="project-release">// LATEST: v1.0.0</div>
-      <h3 class="project-name"><span class="c">CIPHER™</span>COMPRESS</h3>
-      <p class="project-desc">Video compression and conversion tool with batch queue and practical quality presets.</p>
-      <div class="project-usecase">USE CASE: Reduce upload size while keeping acceptable visual quality.</div>
-      <ul class="project-bullets">
-        <li>Batch processing with multiple formats</li>
-        <li>GPU-ready flow and no-gain skip checks</li>
-        <li>Result verification workflow</li>
-      </ul>
-      <div class="project-tech">
-        <span class="tech-pill">Batch Queue</span><span class="tech-pill">GPU Ready</span><span class="tech-pill">Windows Utility</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/aboutsajid/Cipher-Compress/releases/download/v1.0.0/Cipher.Compress.Setup.1.0.0.exe" class="project-link">DOWNLOAD</a>
-        <a href="https://github.com/aboutsajid/Cipher-Compress/releases/tag/v1.0.0" class="project-link ghost">VIEW RELEASE ↗</a>
-      </div>
-    </div>
-
-    <div class="project-card reveal" style="transition-delay:0.5s">
-      <div class="project-icon">DL</div>
-      <div class="project-release">// LATEST: v2.0.0</div>
-      <h3 class="project-name"><span class="c">CIPHER™</span>VIDEO DOWNLOADER</h3>
-      <p class="project-desc">Redesigned video downloader with modern Qt UI, broader site support through yt-dlp, and a Chrome companion extension.</p>
-      <div class="project-usecase">USE CASE: Fast Windows download workflow with one-click browser send-to-desktop.</div>
-      <ul class="project-bullets">
-        <li>New Qt interface with dashboard, transfers, queue &amp; tray support</li>
-        <li>Chrome companion with floating handoff button and playback prompt</li>
-        <li>Installer includes unpacked extension folder for manual loading</li>
-      </ul>
-      <div class="project-tech">
-        <span class="tech-pill">PySide6</span><span class="tech-pill">yt-dlp</span><span class="tech-pill">FFmpeg</span><span class="tech-pill">Chrome Extension</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/aboutsajid/Cipher-Video-Downloader/releases/download/v2.0.0/Cipher.Video.Downloader.Setup.2.0.0.exe" class="project-link">DOWNLOAD</a>
-        <a href="https://github.com/aboutsajid/Cipher-Video-Downloader/releases/tag/v2.0.0" class="project-link ghost">VIEW RELEASE ↗</a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROCESS -->
-<section id="process">
-  <div class="section-label">PROCESS</div>
-  <h2 class="section-title">PROCESS &amp; SETUP</h2>
-  <p class="section-sub">From idea to release, the workflow stays focused and transparent.</p>
-
-  <div class="process-wrap reveal">
-    <div class="process-steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div>
-          <div class="step-title">PROBLEM FRAMING</div>
-          <div class="step-desc">Define one clear user pain before feature design starts. No scope creep.</div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">6</div>
+          <div class="stat-label">Shipped products</div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div>
-          <div class="step-title">PROTOTYPE &amp; TEST</div>
-          <div class="step-desc">Ship a practical version quickly and validate behavior in real conditions.</div>
+        <div class="stat">
+          <div class="stat-num">100<span style="font-size:0.6em;">%</span></div>
+          <div class="stat-label">Free, no accounts</div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div>
-          <div class="step-title">UX HARDENING</div>
-          <div class="step-desc">Improve clarity, spacing, micro-interactions, and reliability across edge cases.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div>
-          <div class="step-title">RELEASE POLISH</div>
-          <div class="step-desc">Package installer and sync documentation plus website. Transparent release notes.</div>
+        <div class="stat">
+          <div class="stat-num">Zero</div>
+          <div class="stat-label">Telemetry, ever</div>
         </div>
       </div>
     </div>
-    <div class="setup-blocks">
-      <div class="setup-block" data-name="// CIPHER AI">
-        <ul class="setup-steps">
-          <li><span class="step-idx">01</span>Download latest setup file from GitHub</li>
-          <li><span class="step-idx">02</span>Install and open Settings</li>
-          <li><span class="step-idx">03</span>Select OpenRouter or Ollama as provider</li>
-          <li><span class="step-idx">04</span>Choose model and start workflow</li>
-        </ul>
+  </header>
+
+  <section id="about" class="philosophy">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">— What I build, and why</div>
+        <h2 class="h2">Useful first. <em>Friction low.</em> Control with the user.</h2>
       </div>
-      <div class="setup-block" data-name="// CIPHER LENS">
-        <ul class="setup-steps">
-          <li><span class="step-idx">01</span>Open the Cipher Lens project page</li>
-          <li><span class="step-idx">02</span>Visit the GitHub repository or repo page</li>
-          <li><span class="step-idx">03</span>Run the Windows installer from latest release</li>
-          <li><span class="step-idx">04</span>Start with a YouTube URL, transcript, or subtitle file</li>
-        </ul>
-      </div>
-      <div class="setup-block" data-name="// CIPHER VAULT">
-        <ul class="setup-steps">
-          <li><span class="step-idx">01</span>Install latest release asset</li>
-          <li><span class="step-idx">02</span>Create master password and vault</li>
-          <li><span class="step-idx">03</span>Use generator and audit tools</li>
-        </ul>
-      </div>
-      <div class="setup-block" data-name="// MEDIA TOOLS">
-        <ul class="setup-steps">
-          <li><span class="step-idx">01</span>Install Video Downloader, Recorder, or Compress</li>
-          <li><span class="step-idx">02</span>Choose output folder</li>
-          <li><span class="step-idx">03</span>Run workflow and verify output</li>
-        </ul>
+      <div class="philosophy-grid">
+        <div class="phil-body">
+          <p>Most software now treats the user as a recurring billing event. Cipher is the opposite — desktop tools that you install once, own outright, and never have to log in to.</p>
+          <p>Every Cipher product solves a single well-defined job: write with AI, analyze a transcript, store a password, record a screen, compress a video, save one. No feature creep, no SaaS lock-in, no telemetry phoning home. You download an installer from GitHub, run it, and you're working in under a minute.</p>
+          <p>I write, design, package, and ship every release myself. The work stays small on purpose so it stays sharp.</p>
+        </div>
+        <div class="principles">
+          <div class="principle">
+            <div class="principle-tag">Principle 01</div>
+            <h4>Problem first, feature second.</h4>
+            <p>Every product starts with a real pain — mine or a user's — written down in one sentence. Features that don't serve that sentence don't ship.</p>
+          </div>
+          <div class="principle">
+            <div class="principle-tag">Principle 02</div>
+            <h4>Local before cloud.</h4>
+            <p>Default to running on your machine, against your files, with no network calls. Online features are opt-in, transparent, and never required.</p>
+          </div>
+          <div class="principle">
+            <div class="principle-tag">Principle 03</div>
+            <h4>Ship the boring parts.</h4>
+            <p>Installer, updates, release notes, hashes, signing path — the parts that turn a prototype into software people actually keep.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <section id="products">
+    <div class="container">
+      <div class="products-header">
+        <div class="section-header">
+          <div class="section-eyebrow">— The Cipher suite</div>
+          <h2 class="h2">Six tools. <em>One philosophy.</em></h2>
+          <p class="section-lede">Each product is independent — install only what you need. Release tags and downloads update automatically from GitHub.</p>
+        </div>
+        <div class="products-meta">
+          Auto-synced with<br>
+          <a href="https://github.com/aboutsajid">github.com/aboutsajid →</a>
+        </div>
+      </div>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-label">CONTACT</div>
-  <h2 class="section-title">LET'S BUILD SOMETHING PRACTICAL</h2>
-  <p class="section-sub">For collaborations, custom desktop tools, or product requests, message directly.</p>
+      <div class="product-list">
 
-  <div class="contact-grid reveal">
-    <div class="contact-info">
-      <h3>I WORK BEST ON FOCUSED PRODUCTS WHERE SPEED, STABILITY, AND USER CLARITY MATTER.</h3>
-      <ul class="contact-links">
-        <li><a href="mailto:aboutsajid@gmail.com">aboutsajid@gmail.com</a></li>
-        <li><a href="https://github.com/aboutsajid">@aboutsajid</a></li>
-        <li><a href="https://aboutsajid.github.io/">aboutsajid.github.io</a></li>
-      </ul>
+        <article class="product">
+          <div class="product-icon" data-variant="1">A</div>
+          <div class="product-body">
+            <div class="product-tagline">— Cipher Ai · Daily AI workspace</div>
+            <h3>Free AI, <em>no fees.</em></h3>
+            <p class="product-desc">
+              A desktop AI workspace that runs against OpenRouter or your local Ollama models. Switch providers from a menu, route across models, run comparisons side by side, and keep the whole conversation on your disk. The AI tool for people tired of paying ten dollars a month to ask ten questions.
+            </p>
+            <div class="product-tags">
+              <span class="tag">Electron</span><span class="tag">TypeScript</span><span class="tag">OpenRouter</span><span class="tag">Ollama</span>
+            </div>
+          </div>
+          <div class="product-cta">
+            <div class="product-version">v1.0.0 · latest</div>
+            <a href="https://github.com/aboutsajid/Cipher-Ai/releases/download/v1.0.0/Cipher-Ai-Setup-1.0.0.exe" class="btn btn-primary">Download →</a>
+            <a href="https://github.com/aboutsajid/Cipher-Ai/releases/tag/v1.0.0" class="release-link">View release</a>
+          </div>
+        </article>
+
+        <article class="product">
+          <div class="product-icon" data-variant="2">L</div>
+          <div class="product-body">
+            <div class="product-tagline">— Cipher Lens · Transcript intelligence</div>
+            <h3>Turn any video <em>into a brief.</em></h3>
+            <p class="product-desc">
+              Drop in a YouTube URL or subtitle file and Cipher Lens pulls the transcript, summarizes it, generates chapters, builds repurposing packs, and exports client-ready PDFs. Run channel deep dives or side-by-side competitor comparisons from one local workspace.
+            </p>
+            <div class="product-tags">
+              <span class="tag">Electron</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Creator tool</span>
+            </div>
+          </div>
+          <div class="product-cta">
+            <div class="product-version">v1.0.0 · latest</div>
+            <a href="https://github.com/aboutsajid/Cipher-Lens/releases/download/v1.0.0/Cipher-Lens-Setup-v1.0.0.exe" class="btn btn-primary">Download →</a>
+            <a href="https://aboutsajid.github.io/cipher-lens/" class="release-link">Product page</a>
+          </div>
+        </article>
+
+        <article class="product">
+          <div class="product-icon" data-variant="3">V</div>
+          <div class="product-body">
+            <div class="product-tagline">— Cipher Vault · Password manager</div>
+            <h3>The password manager <em>you actually own.</em></h3>
+            <p class="product-desc">
+              Argon2id key derivation, AES-256-GCM vault encryption, no cloud, no account. Your vault is one encrypted file in a folder you choose — back it up, sync it through your own tools, or keep it on a USB. The cryptography is documented in plain English on the product page.
+            </p>
+            <div class="product-tags">
+              <span class="tag">Security</span><span class="tag">Local-first</span><span class="tag">AES-256-GCM</span><span class="tag">Argon2id</span>
+            </div>
+          </div>
+          <div class="product-cta">
+            <div class="product-version">v1.0.0 · latest</div>
+            <a href="https://github.com/aboutsajid/Cipher-Vault/releases/download/v1.0.0/CipherVault-Setup.exe" class="btn btn-primary">Download →</a>
+            <a href="/cipher-vault" class="release-link">Product page</a>
+          </div>
+        </article>
+
+        <article class="product">
+          <div class="product-icon" data-variant="4">R</div>
+          <div class="product-body">
+            <div class="product-tagline">— Cipher Screen Recorder · Capture</div>
+            <h3>Record, trim, <em>and you're done.</em></h3>
+            <p class="product-desc">
+              A fast utility for tutorials, support clips, and content workflows. Window or full-screen capture, mic and system audio, clean controls, and an offline-first export path. No watermarks, no upload step, no upgrade prompts.
+            </p>
+            <div class="product-tags">
+              <span class="tag">Productivity</span><span class="tag">Media</span><span class="tag">Windows utility</span>
+            </div>
+          </div>
+          <div class="product-cta">
+            <div class="product-version">v1.0.0 · latest</div>
+            <a href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/download/V1.0/Cipher.Screen.Recorder.exe" class="btn btn-primary">Download →</a>
+            <a href="https://github.com/aboutsajid/Cipher-Screen-Recorder/releases/tag/V1.0" class="release-link">View release</a>
+          </div>
+        </article>
+
+        <article class="product">
+          <div class="product-icon" data-variant="5">C</div>
+          <div class="product-body">
+            <div class="product-tagline">— Cipher Compress · Video compression</div>
+            <h3>Smaller files, <em>same eyes.</em></h3>
+            <p class="product-desc">
+              Batch video compression and conversion with sensible quality presets and a GPU-ready encode path. Queue dozens of files, skip ones that wouldn't gain anything, and verify the output. Built for creators who need to ship under upload size limits without re-rendering twice.
+            </p>
+            <div class="product-tags">
+              <span class="tag">Batch queue</span><span class="tag">GPU ready</span><span class="tag">FFmpeg</span>
+            </div>
+          </div>
+          <div class="product-cta">
+            <div class="product-version">v1.0.0 · latest</div>
+            <a href="https://github.com/aboutsajid/Cipher-Compress/releases/download/v1.0.0/Cipher.Compress.Setup.1.0.0.exe" class="btn btn-primary">Download →</a>
+            <a href="https://github.com/aboutsajid/Cipher-Compress/releases/tag/v1.0.0" class="release-link">View release</a>
+          </div>
+        </article>
+
+        <article class="product">
+          <div class="product-icon" data-variant="6">D</div>
+          <div class="product-body">
+            <div class="product-tagline">— Cipher Video Downloader · v2.0 redesigned</div>
+            <h3>One-click save, <em>built for the browser.</em></h3>
+            <p class="product-desc">
+              A redesigned video downloader with a modern Qt interface, downloads dashboard, queue, tray support, and a Chrome companion that hands videos off from the page you're watching directly into the desktop app. Powered by yt-dlp and FFmpeg under the hood, polished for daily use on top.
+            </p>
+            <div class="product-tags">
+              <span class="tag">PySide6</span><span class="tag">yt-dlp</span><span class="tag">FFmpeg</span><span class="tag">Chrome companion</span>
+            </div>
+          </div>
+          <div class="product-cta">
+            <div class="product-version">v2.0.0 · latest</div>
+            <a href="https://github.com/aboutsajid/Cipher-Video-Downloader/releases/download/v2.0.0/Cipher.Video.Downloader.Setup.2.0.0.exe" class="btn btn-primary">Download →</a>
+            <a href="https://github.com/aboutsajid/Cipher-Video-Downloader/releases/tag/v2.0.0" class="release-link">View release</a>
+          </div>
+        </article>
+
+      </div>
     </div>
-    <div class="contact-form">
-      <div class="form-grid">
-        <div class="form-row">
-          <label>NAME_</label>
-          <input type="text" placeholder="Your name"/>
+  </section>
+
+  <section id="stack" class="stack">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">— Stack &amp; experience</div>
+        <h2 class="h2">The tools <em>I actually use</em> to ship.</h2>
+        <p class="section-lede">No skill bars, no self-rated percentages. Just what's in the source tree of products you can install and audit today.</p>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-col">
+          <h3>Engineering</h3>
+          <div class="stack-list">
+            <div class="stack-item"><span class="stack-item-name">Electron</span><span class="stack-divider"></span><span class="stack-item-note">3 shipped products</span></div>
+            <div class="stack-item"><span class="stack-item-name">TypeScript</span><span class="stack-divider"></span><span class="stack-item-note">Primary language</span></div>
+            <div class="stack-item"><span class="stack-item-name">React</span><span class="stack-divider"></span><span class="stack-item-note">UI in Lens, Ai</span></div>
+            <div class="stack-item"><span class="stack-item-name">Node.js</span><span class="stack-divider"></span><span class="stack-item-note">Daily driver</span></div>
+            <div class="stack-item"><span class="stack-item-name">Python + PySide6</span><span class="stack-divider"></span><span class="stack-item-note">Video Downloader v2</span></div>
+            <div class="stack-item"><span class="stack-item-name">FFmpeg</span><span class="stack-divider"></span><span class="stack-item-note">Compress, Recorder</span></div>
+          </div>
         </div>
-        <div class="form-row">
-          <label>EMAIL_</label>
-          <input type="email" placeholder="your@email.com"/>
+        <div class="stack-col">
+          <h3>Delivery &amp; integrations</h3>
+          <div class="stack-list">
+            <div class="stack-item"><span class="stack-item-name">GitHub Releases</span><span class="stack-divider"></span><span class="stack-item-note">All distribution</span></div>
+            <div class="stack-item"><span class="stack-item-name">Windows packaging</span><span class="stack-divider"></span><span class="stack-item-note">NSIS, electron-builder</span></div>
+            <div class="stack-item"><span class="stack-item-name">OpenRouter / Ollama</span><span class="stack-divider"></span><span class="stack-item-note">AI integration</span></div>
+            <div class="stack-item"><span class="stack-item-name">yt-dlp</span><span class="stack-divider"></span><span class="stack-item-note">Media pipeline</span></div>
+            <div class="stack-item"><span class="stack-item-name">Argon2id + AES-GCM</span><span class="stack-divider"></span><span class="stack-item-note">Vault crypto</span></div>
+            <div class="stack-item"><span class="stack-item-name">Chrome extensions</span><span class="stack-divider"></span><span class="stack-item-note">Companion apps</span></div>
+          </div>
         </div>
       </div>
-      <div class="form-grid">
-        <div class="form-row">
-          <label>TOPIC_</label>
-          <select>
-            <option value="">SELECT TOPIC</option>
-            <option>Project collaboration</option>
-            <option>Desktop app development</option>
-            <option>Bug report or feedback</option>
-            <option>General inquiry</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label>TIMELINE_</label>
-          <select>
-            <option value="">SELECT TIMELINE</option>
-            <option>ASAP</option>
-            <option>Within 2 weeks</option>
-            <option>Within 1 month</option>
-            <option>Flexible</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <label>MESSAGE_</label>
-        <textarea placeholder="Describe your project or idea..."></textarea>
-      </div>
-      <button class="form-submit">[ SEND_MESSAGE.EXE ]</button>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-left">
-    Built by <a href="https://github.com/aboutsajid">Sajid Mehmood</a> · <a href="https://github.com/aboutsajid">github.com/aboutsajid</a>
-  </div>
-  <div class="footer-left">CIPHER™ DESKTOP PRODUCTS · ALL SYSTEMS OPERATIONAL</div>
-  <img src="https://visitor-badge.laobi.icu/badge?page_id=aboutsajid.aboutsajid.github.io&left_color=%230F2024&right_color=%230F9E83&left_text=visitors" alt="Visitor counter" style="height:20px;opacity:0.65"/>
-</footer>
+  <section id="commitments" class="commitments">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">— What I commit to</div>
+        <h2 class="h2">Not just code. <em>Shipping discipline.</em></h2>
+        <p class="section-lede">A product is only as good as the boring parts around it. These four commitments apply to every Cipher release.</p>
+      </div>
+      <div class="commit-grid">
+        <div class="commit">
+          <div class="commit-num">01</div>
+          <h4>Reliability over <em>features.</em></h4>
+          <p>A working install, a stable unlock, and an exit that doesn't lose your file beat any new feature on the roadmap. Bugs that touch user data block all other work.</p>
+        </div>
+        <div class="commit">
+          <div class="commit-num">02</div>
+          <h4>Usability is <em>the design brief.</em></h4>
+          <p>If a feature needs a paragraph of explanation, the UI is wrong, not the user. Every release ends with a clean-pass through the most common flows.</p>
+        </div>
+        <div class="commit">
+          <div class="commit-num">03</div>
+          <h4>Performance, <em>visible.</em></h4>
+          <p>Cipher tools open fast, idle quietly, and don't sit at 6% CPU when nothing is happening. Memory and startup time are tracked release to release.</p>
+        </div>
+        <div class="commit">
+          <div class="commit-num">04</div>
+          <h4>Shipping <em>cadence.</em></h4>
+          <p>Releases are tagged, hashed, and documented. Updates land when they're ready, not when a roadmap deadline says so — but they do land.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-/* MATRIX RAIN */
-(function(){
-  const canvas=document.getElementById('matrix-canvas');
-  const ctx=canvas.getContext('2d');
-  let W,H,cols,drops;
-  const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789①②③④⑤⑥⑦⑧∑∏∂∆ΣΠΩΦΨΛ><[]{}|#@!?%&';
-  function init(){
-    W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;
-    cols=Math.floor(W/18);drops=Array(cols).fill(0).map(()=>Math.random()*H/14|0);
-  }
-  function draw(){
-    ctx.fillStyle='rgba(3,11,7,0.04)';ctx.fillRect(0,0,W,H);
-    ctx.font='13px "Share Tech Mono",monospace';
-    for(let i=0;i<cols;i++){
-      const ch=chars[Math.random()*chars.length|0];
-      ctx.fillStyle=Math.random()>0.95?'#12c4a2':'#0a6b5a';
-      ctx.fillText(ch,i*18,drops[i]*14);
-      if(drops[i]*14>H&&Math.random()>0.975)drops[i]=0;
-      drops[i]++;
-    }
-  }
-  init();window.addEventListener('resize',init);setInterval(draw,55);
-})();
+  <section id="process">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">— Process</div>
+        <h2 class="h2">From <em>one sentence</em> to installer.</h2>
+      </div>
+      <div class="process-grid">
+        <div class="step">
+          <span class="step-num">Step 01</span>
+          <h4>Frame the problem</h4>
+          <p>Write the user's pain in one sentence. If I can't, the product isn't ready to start.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Step 02</span>
+          <h4>Prototype and test</h4>
+          <p>Ship the simplest working version. Use it daily for a week before adding anything.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Step 03</span>
+          <h4>UX hardening</h4>
+          <p>Spacing, copy, micro-interactions, edge cases. The pass that turns a prototype into a product.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Step 04</span>
+          <h4>Release polish</h4>
+          <p>Package the installer, publish hashes, write release notes, update the site. Then tag.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-/* TYPING EFFECT */
-(function(){
-  const el=document.getElementById('typed-text');
-  if(!el)return;
-  const txt='PRIVACY-FIRST DESKTOP BUILDER';
-  let i=0;
-  const t=setInterval(()=>{el.textContent=txt.slice(0,i++);if(i>txt.length)clearInterval(t)},45);
-})();
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">— Get in touch</div>
+        <h2 class="h2">Let's build something <em>practical.</em></h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-body">
+          <p>Collaborations, custom desktop tools, security disclosures, or product requests — message directly. I work best on focused products where speed, stability, and user clarity matter.</p>
+          <div class="contact-channels">
+            <a href="mailto:aboutsajid@gmail.com" class="channel">
+              <span class="channel-label">Email</span>
+              <span class="channel-value">aboutsajid@gmail.com</span>
+            </a>
+            <a href="https://github.com/aboutsajid" class="channel">
+              <span class="channel-label">GitHub</span>
+              <span class="channel-value">@aboutsajid</span>
+            </a>
+            <a href="mailto:aboutsajid@gmail.com?subject=Security%20Disclosure" class="channel">
+              <span class="channel-label">Security</span>
+              <span class="channel-value">aboutsajid@gmail.com</span>
+            </a>
+          </div>
+        </div>
+        <form class="form" onsubmit="event.preventDefault(); alert('Form is a visual draft — wire to your secure email forwarding endpoint.');">
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="f-name">Name</label>
+              <input id="f-name" type="text" required>
+            </div>
+            <div class="form-row">
+              <label for="f-email">Email</label>
+              <input id="f-email" type="email" required>
+            </div>
+          </div>
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="f-topic">Topic</label>
+              <select id="f-topic">
+                <option>Project collaboration</option>
+                <option>Desktop app development</option>
+                <option>Bug report or feedback</option>
+                <option>Security disclosure</option>
+                <option>General inquiry</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="f-timeline">Timeline</label>
+              <select id="f-timeline">
+                <option>ASAP</option>
+                <option>Within 2 weeks</option>
+                <option>Within 1 month</option>
+                <option>Flexible</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="f-msg">Message</label>
+            <textarea id="f-msg" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send message →</button>
+        </form>
+      </div>
+    </div>
+  </section>
 
-/* SCROLL REVEAL */
-(function(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
-  },{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-})();
+  <footer>
+    <div class="container footer-inner">
+      <div>Built by Sajid Mehmood · <a href="https://github.com/aboutsajid" style="color:var(--accent);">github.com/aboutsajid</a></div>
+      <div class="footer-links">
+        <a href="/privacy">Privacy</a>
+        <a href="/security">Security</a>
+        <a href="/cipher-vault">Cipher Vault</a>
+        <a href="https://aboutsajid.github.io/cipher-lens/">Cipher Lens</a>
+      </div>
+    </div>
+  </footer>
 
-/* SKILL BARS */
-(function(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){e.target.style.width=e.target.dataset.width;obs.unobserve(e.target)}
-    });
-  },{threshold:0.3});
-  document.querySelectorAll('.skill-bar').forEach(b=>obs.observe(b));
-})();
-
-/* NAV TOGGLE */
-document.getElementById('navToggle').addEventListener('click',function(){
-  document.getElementById('navLinks').classList.toggle('open');
-});
-document.querySelectorAll('#navLinks a').forEach(a=>{
-  a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
-});
-
-/* NAV ACTIVE */
-(function(){
-  const sections=document.querySelectorAll('section[id]');
-  const links=document.querySelectorAll('.nav-links a[href^="#"]');
-  window.addEventListener('scroll',()=>{
-    let cur='';
-    sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});
-    links.forEach(l=>{l.style.color=l.getAttribute('href')==='#'+cur?'var(--accent)':''});
-  },{passive:true});
-})();
-
-/* GLITCH PERIODIC */
-(function(){
-  const el=document.querySelector('.glitch');
-  if(!el)return;
-  setInterval(()=>{
-    el.style.transform=`skewX(${(Math.random()-0.5)*1.5}deg)`;
-    setTimeout(()=>el.style.transform='',80);
-  },3800);
-})();
-</script>
 </body>
 </html>
